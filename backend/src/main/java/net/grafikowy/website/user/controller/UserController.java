@@ -1,5 +1,6 @@
 package net.grafikowy.website.user.controller;
 
+import net.grafikowy.website.user.constants.AuthorityConstant;
 import net.grafikowy.website.user.controller.dto.UserDTO;
 import net.grafikowy.website.user.model.User;
 import net.grafikowy.website.user.service.UserService;
@@ -26,7 +27,7 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public void signUp(@RequestBody @Valid UserDTO userDTO) {
-        User saveUser = userService.saveUser(userDTO.getEmail(), userDTO.getPassword(), userDTO.getFirstName(), userDTO.getLastName());
+        User saveUser = userService.saveUser(userDTO.getEmail(), userDTO.getPassword(), userDTO.getFirstName(), userDTO.getLastName(), userDTO.getPhone(), AuthorityConstant.USER);
         logger.info("Created user: {}", saveUser);
     }
 }

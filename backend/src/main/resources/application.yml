@@ -1,0 +1,14 @@
+grafikowy:
+  security:
+    secret: LubieKotletySchabowe
+    expirationTime: 864000000
+    tokenPrefix: Bearer
+    headerName: Authorization
+
+spring:
+  datasource:
+      username: sa
+      password:
+  h2:
+    console:
+      enabled: true

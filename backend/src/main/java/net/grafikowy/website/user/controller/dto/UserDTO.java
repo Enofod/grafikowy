@@ -13,6 +13,7 @@ public class UserDTO {
 
     private String firstName;
     private String lastName;
+    private String phone;
 
     public String getEmail() {
         return email;
@@ -44,5 +45,13 @@ public class UserDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
