@@ -10,4 +10,9 @@ public class TestController {
     public String test() {
         return "TEST";
     }
+
+    @GetMapping("/kotlet")
+    public String kotlet() {
+        return "Kotlet";
+    }
 }

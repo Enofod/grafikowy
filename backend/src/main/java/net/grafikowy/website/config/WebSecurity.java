@@ -1,5 +1,6 @@
 package net.grafikowy.website.config;
 
+import net.grafikowy.website.user.constants.AuthorityConstant;
 import net.grafikowy.website.user.filter.JWTAuthenticationFilter;
 import net.grafikowy.website.user.filter.JWTAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
@@ -37,6 +38,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users/sign-up").permitAll()
+                .antMatchers("/test").hasAuthority(AuthorityConstant.ADMIN)
+                .antMatchers("/kotlet").hasAuthority(AuthorityConstant.USER)
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager(), securityProperties))

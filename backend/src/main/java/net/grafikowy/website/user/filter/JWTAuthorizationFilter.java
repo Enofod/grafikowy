@@ -1,6 +1,7 @@
 package net.grafikowy.website.user.filter;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import net.grafikowy.website.config.SecurityProperties;
 import net.grafikowy.website.user.constants.AuthorityConstant;
@@ -55,6 +56,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             String user = claims.getSubject();
             if (user != null) {
+                if (claims.get(AuthorityConstant.AUTHORITIES_KEY) == null) {
+                    throw new JwtException("Invalid authorities in jwt token");
+                }
                 Collection<? extends GrantedAuthority> authorities =
                         Arrays.stream(claims.get(AuthorityConstant.AUTHORITIES_KEY).toString().split(","))
                                 .map(SimpleGrantedAuthority::new)

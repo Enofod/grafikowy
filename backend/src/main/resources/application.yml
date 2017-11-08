@@ -2,7 +2,7 @@ grafikowy:
   security:
     secret: LubieKotletySchabowe
     expirationTime: 864000000
-    tokenPrefix: Bearer
+    tokenPrefix: 'Bearer '
     headerName: Authorization
 
 spring:
