@@ -14,6 +14,8 @@ import {
   MatSnackBarModule,
   MatTooltipModule
 } from '@angular/material';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {NgModule} from '@angular/core';
 
 @NgModule({
@@ -31,7 +33,8 @@ import {NgModule} from '@angular/core';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    FlexLayoutModule
   ],
   exports: [
     MatButtonModule,
@@ -47,7 +50,8 @@ import {NgModule} from '@angular/core';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    FlexLayoutModule
   ],
 })
 
