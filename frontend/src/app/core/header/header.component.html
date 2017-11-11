@@ -1,5 +1,8 @@
-<div fxLayout="row" fxLayoutAlign="space-around center" class="headerWrapper">
-        <button mat-button>Jajco</button>
-        <button mat-button>Login</button>
-</div>
+<mat-toolbar color="primary">
+        <mat-toolbar-row>
+        <span>Grafikowy</span>
+        <span class="example-spacer"></span>
+        <button mat-button (click)="openLoginDialog()">Login</button>       
+        </mat-toolbar-row>
+</mat-toolbar>
 
