@@ -22,10 +22,13 @@ export class AuthService {
       (response: Response) => {
         const authToken = response.headers.get('Authorization');
         localStorage.setItem(environment.authTokenLocalStorageKey, authToken);
-        console.log(this.jwtHelper.decodeToken(authToken));
         return true;
       }
     );
+  }
+
+  logout(): void {
+    localStorage.removeItem(environment.authTokenLocalStorageKey);
   }
 
   getToken(): string {
@@ -33,8 +36,11 @@ export class AuthService {
   }
 
   getUserEmail(): string {
-    const authToken = this.getToken();
-    return this.jwtHelper.decodeToken(authToken).sub;
+    return this.jwtHelper.decodeToken(this.getToken()).sub;
+  }
+
+  getUserRoles(): string[] {
+    return this.jwtHelper.decodeToken(this.getToken()).auth;
   }
 
   isTokenExpired(): boolean {
@@ -48,6 +54,15 @@ export class AuthService {
       return false;
     }
     return 'ROLE_ADMIN' === this.jwtHelper.decodeToken(authToken).auth;
+  }
+
+  isUserOrAdmin(): boolean {
+    const authToken = this.getToken();
+    if (authToken === null) {
+      return false;
+    }
+    const auth = this.jwtHelper.decodeToken(authToken).auth;
+    return 'ROLE_ADMIN' === auth || 'ROLE_USER' === auth;
   }
 }
 

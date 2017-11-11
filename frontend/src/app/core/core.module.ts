@@ -19,6 +19,9 @@ import { AuthService } from './services/auth.service';
 import { ApiClientService } from './services/api-client.service';
 import { UserService } from './services/user.service';
 
+import { UserAuthGuard } from './guards/user-auth.guard';
+import { AdminAuthGuard } from './guards/admin-auth.guard';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -44,7 +47,9 @@ import { UserService } from './services/user.service';
   providers: [
     AuthService,
     ApiClientService,
-    UserService
+    UserService,
+    UserAuthGuard,
+    AdminAuthGuard
   ],
   entryComponents: [
     LoginDialogComponent

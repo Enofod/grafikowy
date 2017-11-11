@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.userService.getUserByEmail(this.authService.getUserEmail()).subscribe(user => {
       this.loggedUser = user;
+      this.loggedUser.roles = this.authService.getUserRoles();
     });
   }
 
