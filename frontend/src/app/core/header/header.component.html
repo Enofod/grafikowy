@@ -1,8 +1,10 @@
-<mat-toolbar color="primary">
-        <mat-toolbar-row>
-        <span>Grafikowy</span>
-        <span class="example-spacer"></span>
-        <button mat-button (click)="openLoginDialog()">Login</button>       
-        </mat-toolbar-row>
+<mat-toolbar fxLayout="row" fxLayoutAlign="center center" color="primary">
+  <div fxFlex=70% class="navigationBar">
+    <div class="logo" fxFlex="70%">
+      <span>Grafikowy</span>
+    </div>
+    <div class="menu" fxFlex="30%">
+      <button mat-button (click)="openLoginDialog()">Login</button>
+    </div>
+  </div>
 </mat-toolbar>
-

@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Login</h2>
 <mat-dialog-content>
-  <form (ngSubmit)="authenticate()">
+  <form (ngSubmit)="authenticate()" fxLayout="column">
     <mat-form-field>
       <input matInput [(ngModel)]="email" name="email" type="email" placeholder="Email" required>
     </mat-form-field>
