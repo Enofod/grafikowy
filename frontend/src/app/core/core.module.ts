@@ -13,9 +13,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { Error404Component } from './components/error404/error404.component';
 import { LoginDialogComponent } from './components/header/login-dialog/login-dialog.component';
+import { UserComponent } from './components/user/user.component';
 
 import { AuthService } from './services/auth.service';
 import { ApiClientService } from './services/api-client.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   imports: [
@@ -36,11 +38,13 @@ import { ApiClientService } from './services/api-client.service';
     FooterComponent,
     Error404Component,
     HeaderComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    UserComponent
   ],
   providers: [
     AuthService,
-    ApiClientService
+    ApiClientService,
+    UserService
   ],
   entryComponents: [
     LoginDialogComponent

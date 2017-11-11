@@ -8,17 +8,23 @@ export class ApiClientService {
 
   constructor(private http: HttpClient) { }
 
-  get(uri: string): any {
-    this.http.get(environment.apiUrl.concat(uri)).subscribe(data => {
-      return data['value'];
-    });
+  get<T>(uri: string): Observable<T> {
+    return this.http.get<T>(environment.apiUrl.concat(uri),
+      {
+        headers: new HttpHeaders({ 'Authorization': localStorage.getItem(environment.authTokenLocalStorageKey) }),
+      }
+    );
   }
 
-  post(uri: string, body: any): Observable<Object> {
-    return this.http.post(environment.apiUrl.concat(uri), body);
+  post<T>(uri: string, body: any): Observable<T> {
+    return this.http.post<T>(environment.apiUrl.concat(uri), body,
+      {
+        headers: new HttpHeaders({ 'Authorization': localStorage.getItem(environment.authTokenLocalStorageKey) }),
+      }
+    );
   }
 
-  postForEmptyResponse(uri: string, body: any): Observable<Object> {
+  postWithoutAuthorizationForEmptyResponse(uri: string, body: any): Observable<Object> {
     return this.http.post(environment.apiUrl.concat(uri), body,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

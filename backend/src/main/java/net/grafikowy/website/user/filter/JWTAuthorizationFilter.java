@@ -33,6 +33,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader(securityProperties.getHeaderName());
+        System.out.println("TRYING TO AUTHENTICATE: " + header);
 
         if (header == null || !header.startsWith(securityProperties.getTokenPrefix())) {
             chain.doFilter(request, response);
@@ -41,11 +42,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(request);
 
+        System.out.println("AUTH TOKEN: " + authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         chain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+
         String token = request.getHeader(securityProperties.getHeaderName());
 
         if (token != null) {

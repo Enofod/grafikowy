@@ -7,6 +7,7 @@ import net.grafikowy.website.config.SecurityProperties;
 import net.grafikowy.website.user.constants.AuthorityConstant;
 import net.grafikowy.website.user.controller.dto.SignUpUserDTO;
 import net.grafikowy.website.user.controller.dto.UserDetailsDTO;
+import net.grafikowy.website.user.controller.exception.UserNotFoundException;
 import net.grafikowy.website.user.model.User;
 import net.grafikowy.website.user.service.UserService;
 import org.slf4j.Logger;
@@ -36,9 +37,17 @@ public class UserController {
         logger.info("Created user: {}", saveUser);
     }
 
-    // ITS PROBABLY USELESS, BECOUSE THIS INFORMATION IS ON FRONTEND - NO NEED TO CALL
+    @GetMapping("/{userEmail}")
+    public UserDetailsDTO getUser(@PathVariable String userEmail) throws UserNotFoundException {
+        System.out.println("SEARCHING USEER");
+        User storedUser = userService.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + "not found"));
+        System.out.println(storedUser);
+        return new UserDetailsDTO(storedUser.getEmail(), storedUser.getFirstName(), storedUser.getLastName(), storedUser.getPhone());
+    }
+
+    // ITS PROBABLY USELESS, BECOUSE THIS INFORMATION IS ON FRONTEND (JWT) - NO NEED TO CALL
     @GetMapping("/whoAmI")
-    public UserDetailsDTO whoAmI(HttpServletRequest request) {
+    public UserDetailsDTO whoAmI(HttpServletRequest request) throws UserNotFoundException {
         String token = request.getHeader(securityProperties.getHeaderName());
 
         String userEmail = Jwts.parser()
@@ -46,12 +55,7 @@ public class UserController {
                 .parseClaimsJws(token.replace(securityProperties.getTokenPrefix(), ""))
                 .getBody().getSubject();
 
-        System.out.println(userEmail);
-
-        User savedUser = userService.findByEmail(userEmail);
-        if (savedUser != null) {
-            return new UserDetailsDTO(savedUser.getEmail(), savedUser.getFirstName(), savedUser.getLastName(), savedUser.getPhone());
-        }
-        throw new JwtException("Cant find user");
+        User storedUser = userService.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + "not found"));
+        return new UserDetailsDTO(storedUser.getEmail(), storedUser.getFirstName(), storedUser.getLastName(), storedUser.getPhone());
     }
 }

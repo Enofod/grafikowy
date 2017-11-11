@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiClientService } from './api-client.service';
 import { Observable } from 'rxjs/Observable';
-import { JwtHelper} from 'angular2-jwt';
+import { JwtHelper } from 'angular2-jwt';
+import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -12,35 +13,37 @@ import 'rxjs/add/observable/throw';
 export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
-  tokenFieldName = 'grafikowyAuthToken';
 
   constructor(private apiClientService: ApiClientService) { }
 
   // It returns true, if valid authentication, otherwise it throws error
   authenticate(email: string, password: string): Observable<boolean> {
-    console.log('Authenticating: ' + email + ' ' + password);
-
-    return this.apiClientService.postForEmptyResponse('login', new LoginCredentials(email, password)).map(
+    return this.apiClientService.postWithoutAuthorizationForEmptyResponse('login', new LoginCredentials(email, password)).map(
       (response: Response) => {
         const authToken = response.headers.get('Authorization');
-        localStorage.setItem(this.tokenFieldName, authToken);
+        localStorage.setItem(environment.authTokenLocalStorageKey, authToken);
+        console.log(this.jwtHelper.decodeToken(authToken));
         return true;
       }
     );
   }
 
+  getToken(): string {
+    return localStorage.getItem(environment.authTokenLocalStorageKey);
+  }
+
   getUserEmail(): string {
-    const authToken = localStorage.getItem(this.tokenFieldName);
+    const authToken = this.getToken();
     return this.jwtHelper.decodeToken(authToken).sub;
   }
 
   isTokenExpired(): boolean {
-    const authToken = localStorage.getItem(this.tokenFieldName);
+    const authToken = this.getToken();
     return authToken === null ? true : this.jwtHelper.isTokenExpired(authToken);
   }
 
   isAdmin(): boolean {
-    const authToken = localStorage.getItem(this.tokenFieldName);
+    const authToken = this.getToken();
     if (authToken === null) {
       return false;
     }
