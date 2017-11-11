@@ -1,7 +1,7 @@
-import {Component, Inject} from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { Component, Inject } from '@angular/core';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-login-dialog',
@@ -9,14 +9,13 @@ import {ErrorStateMatcher} from '@angular/material/core';
   styleUrls: ['./login-dialog.component.css']
 })
 export class LoginDialogComponent {
-  hide = true;
-  emailFormControl: any;
+  email: String;
+  password: String;
+  passwordHide = true;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    this.emailFormControl = new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]);
-   }
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any) { }
 
+  authenticate(): void {
+    console.log(this.email, this.password);
+  }
 }
