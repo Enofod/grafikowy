@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
 @Component({
@@ -10,13 +9,9 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) { }
 
-  ngOnInit() {
-    this.http.get('http://localhost:8080/test').subscribe(data => {
-      console.log(data['value']);
-    });
-  }
+  ngOnInit() {}
 
   openLoginDialog(): void {
     const dialogRef = this.dialog.open(LoginDialogComponent, {

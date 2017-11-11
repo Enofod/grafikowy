@@ -3,6 +3,7 @@ package net.grafikowy.website.config;
 import net.grafikowy.website.user.constants.AuthorityConstant;
 import net.grafikowy.website.user.filter.JWTAuthenticationFilter;
 import net.grafikowy.website.user.filter.JWTAuthorizationFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,11 +22,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private SecurityProperties securityProperties;
+    private String authorizationHeaderName;
 
-    public WebSecurity(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder, SecurityProperties securityProperties) {
+    public WebSecurity(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder, SecurityProperties securityProperties, @Value("${grafikowy.security.headerName}") String authorizationHeaderName) {
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.securityProperties = securityProperties;
+        this.authorizationHeaderName = authorizationHeaderName;
     }
 
     @Override
@@ -36,7 +39,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
+        http.cors()
+                .and()
+                .csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users/sign-up").permitAll()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/kotlet").hasAuthority(AuthorityConstant.USER)
@@ -55,7 +60,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
+        config.addExposedHeader(authorizationHeaderName);
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
 }

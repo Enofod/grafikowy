@@ -5,14 +5,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
-import { LoggerService } from './logger.service';
 import { RouterModule } from '@angular/router';
 
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { MaterialModule } from '../shared/modules/material.module';
-import { Error404Component } from './error404/error404.component';
-import { LoginDialogComponent } from './header/login-dialog/login-dialog.component';
+
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { Error404Component } from './components/error404/error404.component';
+import { LoginDialogComponent } from './components/header/login-dialog/login-dialog.component';
+
+import { AuthService } from './services/auth.service';
+import { ApiClientService } from './services/api-client.service';
 
 @NgModule({
   imports: [
@@ -36,7 +39,8 @@ import { LoginDialogComponent } from './header/login-dialog/login-dialog.compone
     LoginDialogComponent
   ],
   providers: [
-    LoggerService
+    AuthService,
+    ApiClientService
   ],
   entryComponents: [
     LoginDialogComponent
