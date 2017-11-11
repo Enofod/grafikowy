@@ -12,8 +12,7 @@ export class UserAuthGuard implements CanActivate {
   constructor(private dialog: MatDialog, private authService: AuthService) { }
 
   canActivate(): Observable<boolean> {
-     const isUserOrAdminWithValidToken = !this.authService.isTokenExpired() && this.authService.isUserOrAdmin();
-    if (!isUserOrAdminWithValidToken) {
+    if (this.authService.isTokenExpired()) {
       const dialogRef = this.dialog.open(LoginDialogComponent, {
         width: '450px'
       });
@@ -21,6 +20,6 @@ export class UserAuthGuard implements CanActivate {
         return this.authService.isUserOrAdmin();
       });
     }
-    return Observable.of(isUserOrAdminWithValidToken);
+    return Observable.of(true);
   }
 }
