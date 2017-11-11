@@ -12,7 +12,7 @@ import 'rxjs/add/observable/throw';
 export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
-  tokenFieldName = 'authToken';
+  tokenFieldName = 'grafikowyAuthToken';
 
   constructor(private apiClientService: ApiClientService) { }
 
@@ -29,17 +29,22 @@ export class AuthService {
     );
   }
 
-  isTokenExpired() {
+  getUserEmail(): string {
+    const authToken = localStorage.getItem(this.tokenFieldName);
+    return this.jwtHelper.decodeToken(authToken).sub;
+  }
+
+  isTokenExpired(): boolean {
     const authToken = localStorage.getItem(this.tokenFieldName);
     return authToken === null ? true : this.jwtHelper.isTokenExpired(authToken);
   }
 
-  isAdmin() {
+  isAdmin(): boolean {
     const authToken = localStorage.getItem(this.tokenFieldName);
     if (authToken === null) {
       return false;
     }
-    console.log(this.jwtHelper.decodeToken(authToken));
+    return 'ROLE_ADMIN' === this.jwtHelper.decodeToken(authToken).auth;
   }
 }
 

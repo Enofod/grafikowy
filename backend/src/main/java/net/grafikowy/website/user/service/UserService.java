@@ -1,5 +1,8 @@
 package net.grafikowy.website.user.service;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import net.grafikowy.website.config.SecurityProperties;
 import net.grafikowy.website.user.model.User;
 import net.grafikowy.website.user.repository.AuthorityRepository;
 import net.grafikowy.website.user.repository.UserRepository;
@@ -18,12 +21,14 @@ public class UserService {
 
     private UserRepository userRepository;
     private AuthorityRepository authorityRepository;
+    private SecurityProperties securityProperties;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.authorityRepository = authorityRepository;
+        this.securityProperties = securityProperties;
     }
 
     @Transactional
@@ -33,5 +38,9 @@ public class UserService {
 
         logger.info("Save user: {}", user);
         return userRepository.save(user);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

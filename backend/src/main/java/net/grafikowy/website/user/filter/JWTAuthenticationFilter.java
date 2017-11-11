@@ -74,7 +74,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         logger.info("Successful authentication. Token: {}", token);
 
-        logger.info("Header: {}, Token prefix: {}", securityProperties.getHeaderName(), securityProperties.getTokenPrefix());
         response.addHeader(securityProperties.getHeaderName(), securityProperties.getTokenPrefix() + token);
     }
 }
