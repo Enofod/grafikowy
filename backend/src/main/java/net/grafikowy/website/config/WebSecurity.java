@@ -34,7 +34,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/h2-console/**");
+                .antMatchers("/h2-console/**")
+                .antMatchers("/swagger-resources/**", "/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**");
     }
 
     @Override
@@ -43,7 +44,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users/sign-up").permitAll()
-                .antMatchers("/test").permitAll()
                 .antMatchers("/kotlet").hasAuthority(AuthorityConstant.USER)
                 .anyRequest().authenticated()
                 .and()

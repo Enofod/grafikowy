@@ -22,14 +22,12 @@ public class UserService {
 
     private UserRepository userRepository;
     private AuthorityRepository authorityRepository;
-    private SecurityProperties securityProperties;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.authorityRepository = authorityRepository;
-        this.securityProperties = securityProperties;
     }
 
     @Transactional
@@ -37,7 +35,6 @@ public class UserService {
         User user = new User(email, bCryptPasswordEncoder.encode(password), firstName, lastName, phone);
         user.setAuthorities(Collections.singleton(authorityRepository.getOne(authorityName)));
 
-        logger.info("Save user: {}", user);
         return userRepository.save(user);
     }
 

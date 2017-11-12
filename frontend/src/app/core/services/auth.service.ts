@@ -58,7 +58,6 @@ export class AuthService {
 
   isUserOrAdmin(): boolean {
     const authToken = this.getToken();
-    console.log(authToken);
     if (authToken === null) {
       return false;
     }

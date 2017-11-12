@@ -39,9 +39,7 @@ public class UserController {
 
     @GetMapping("/{userEmail}")
     public UserDetailsDTO getUser(@PathVariable String userEmail) throws UserNotFoundException {
-        System.out.println("SEARCHING USEER");
         User storedUser = userService.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + "not found"));
-        System.out.println(storedUser);
         return new UserDetailsDTO(storedUser.getEmail(), storedUser.getFirstName(), storedUser.getLastName(), storedUser.getPhone());
     }
 
