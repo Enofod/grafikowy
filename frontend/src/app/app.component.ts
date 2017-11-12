@@ -9,6 +9,10 @@ import { environment } from '../environments/environment';
 export class AppComponent {
   title = 'app';
 
+  constructor() {
+    document.body.style.margin = '0';
+  }
+
   isDarkTheme() {
     const themeColor = localStorage.getItem(environment.themeColor);
     return themeColor != null && themeColor === 'dark';
