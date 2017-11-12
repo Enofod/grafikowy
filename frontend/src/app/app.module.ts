@@ -9,10 +9,12 @@ import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { SchedulerComponent } from './components/scheduler/scheduler.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SchedulerComponent,
   ],
   imports: [
     BrowserModule,

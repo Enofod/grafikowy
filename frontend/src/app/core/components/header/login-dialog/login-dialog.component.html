@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Login</h2>
+<h2 mat-dialog-title>Logowanie</h2>
 <mat-dialog-content>
   <form (ngSubmit)="authenticate()" fxLayout="column">
     <mat-form-field>
@@ -8,6 +8,6 @@
       <input matInput [(ngModel)]="password" name="password" placeholder="Haslo" [type]="passwordHide ? 'password' : 'text'" required>
       <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
-    <button mat-raised-button type="submit" color="primary">Login</button>
+    <button mat-raised-button type="submit" color="primary">Zaloguj</button>
   </form>
 </mat-dialog-content>

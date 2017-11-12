@@ -4,6 +4,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../model/user';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ export class HeaderComponent implements OnInit {
   constructor(private dialog: MatDialog, private authService: AuthService, private userService: UserService) { }
 
   loggedUser: User;
+  darkThemeChecked = false;
 
   ngOnInit() {
     this.loadLoggedInUser();
@@ -42,6 +44,15 @@ export class HeaderComponent implements OnInit {
     this.userService.getCurrentUserDetails().subscribe(user => {
       this.loggedUser = user;
     });
+  }
+
+  changeTheme(): void {
+    const currentTheme = localStorage.getItem(environment.themeColor);
+    if (currentTheme === 'dark') {
+      localStorage.setItem(environment.themeColor, 'light');
+    } else {
+      localStorage.setItem(environment.themeColor, 'dark');
+    }
   }
 
 }

@@ -7,8 +7,17 @@
       <button mat-button (click)="openLoginDialog()">Zaloguj</button>
     </div>
     <div class="menu" *ngIf="isLoggedIn()" fxFlex="30%">
-        <a mat-button routerLink="/users">{{ loggedUser.firstName }} {{ loggedUser.lastName }}</a>
-        <button mat-button (click)="logout()" fxFlexAlign="right">Wyloguj</button>
-      </div>
+      <a mat-button routerLink="/users">{{ loggedUser.firstName }} {{ loggedUser.lastName }}</a>
+      <a mat-button routerLink="/scheduler">Scheduler</a>
+
+      <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+        <button mat-menu-item (click)="changeTheme()">Zmien motyw</button>
+        <button mat-menu-item (click)="logout()">Wyloguj</button>
+      </mat-menu>
+
+    </div>
   </div>
 </mat-toolbar>
