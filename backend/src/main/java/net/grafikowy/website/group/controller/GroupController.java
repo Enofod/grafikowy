@@ -1,10 +1,11 @@
 package net.grafikowy.website.group.controller;
 
-import net.grafikowy.website.group.model.Group;
+import net.grafikowy.website.group.controller.dto.GroupDetailsDTO;
 import net.grafikowy.website.group.service.GroupService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController()
 @RequestMapping("/groups")
@@ -17,12 +18,12 @@ public class GroupController {
     }
 
     @GetMapping("/all")
-    public List<Group> getAll() {
-        return groupService.getAll();
+    public List<GroupDetailsDTO> getAll() {
+        return groupService.getAll().stream().map(group -> new GroupDetailsDTO(group)).collect(Collectors.toList());
     }
 
     @PostMapping("/{groupName}")
-    public Group createGroup(@PathVariable String groupName) {
-        return groupService.createGroup(groupName);
+    public GroupDetailsDTO createGroup(@PathVariable String groupName) {
+        return new GroupDetailsDTO(groupService.createGroup(groupName));
     }
 }

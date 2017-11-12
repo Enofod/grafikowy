@@ -1,8 +1,11 @@
 package net.grafikowy.website.util.initloader;
 
 import net.grafikowy.website.group.exception.GroupNotFoundException;
+import net.grafikowy.website.group.model.Group;
 import net.grafikowy.website.group.service.GroupService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GroupInitLoader {
     private GroupService groupService;
 
@@ -12,14 +15,15 @@ public class GroupInitLoader {
 
     public void load() throws GroupNotFoundException {
         String firstGroupName = "Kotleciki";
-        groupService.createGroup(firstGroupName);
+        Group group1 = groupService.createGroup(firstGroupName);
         String secondGroupName = "Kotleciki";
+        Group group2 = groupService.createGroup(secondGroupName);
 
-        groupService.createGroup(secondGroupName);
-        groupService.addModeratorToGroup(firstGroupName, "a");
-        groupService.addUserToGroup(firstGroupName, "a");
-        groupService.addUserToGroup(firstGroupName, "b");
+        long groupOneId = group1.getId();
+        groupService.addModeratorToGroup(groupOneId, "a");
+        groupService.addUserToGroup(groupOneId, "a");
+        groupService.addUserToGroup(groupOneId, "b");
 
-        groupService.addUserToGroup(secondGroupName, "b");
+        groupService.addUserToGroup(group2.getId(), "b");
     }
 }

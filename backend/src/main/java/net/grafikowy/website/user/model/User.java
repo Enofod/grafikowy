@@ -154,9 +154,7 @@ public class User {
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (phone != null ? !phone.equals(user.phone) : user.phone != null) return false;
-        if (authorities != null ? !authorities.equals(user.authorities) : user.authorities != null) return false;
-        if (usingGroups != null ? !usingGroups.equals(user.usingGroups) : user.usingGroups != null) return false;
-        return moderatingGroups != null ? moderatingGroups.equals(user.moderatingGroups) : user.moderatingGroups == null;
+        return authorities != null ? authorities.equals(user.authorities) : user.authorities == null;
     }
 
     @Override
@@ -168,8 +166,6 @@ public class User {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (authorities != null ? authorities.hashCode() : 0);
-        result = 31 * result + (usingGroups != null ? usingGroups.hashCode() : 0);
-        result = 31 * result + (moderatingGroups != null ? moderatingGroups.hashCode() : 0);
         return result;
     }
 }

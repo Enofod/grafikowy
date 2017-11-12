@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GroupService {
@@ -32,16 +33,16 @@ public class GroupService {
     }
 
     @Transactional
-    public void addUserToGroup(String groupName, String userEmail) throws GroupNotFoundException {
-        Group group = groupRepository.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name: " + groupName + " not found!"));
+    public void addUserToGroup(long groupId, String userEmail) throws GroupNotFoundException {
+        Group group = Optional.ofNullable(groupRepository.findOne(groupId)).orElseThrow(() -> new GroupNotFoundException("Group with id: " + groupId + " not found!"));
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("User with email: " + userEmail + " not found!"));
 
         group.addUser(user);
     }
 
     @Transactional
-    public void addModeratorToGroup(String groupName, String userEmail) throws GroupNotFoundException {
-        Group group = groupRepository.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name: " + groupName + " not found!"));
+    public void addModeratorToGroup(long groupId, String userEmail) throws GroupNotFoundException {
+        Group group = Optional.ofNullable(groupRepository.findOne(groupId)).orElseThrow(() -> new GroupNotFoundException("Group with id: " + groupId + " not found!"));
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("User with email: " + userEmail + " not found!"));
 
         group.addModerator(user);

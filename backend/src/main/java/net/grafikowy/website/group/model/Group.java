@@ -24,6 +24,8 @@ public class Group {
     @JoinTable(name = "moderator_group", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> moderators = new HashSet<>();
 
+    public Group() {}
+
     public Group(String name) {
         this.name = name;
     }
@@ -90,17 +92,13 @@ public class Group {
         Group group = (Group) o;
 
         if (id != group.id) return false;
-        if (name != null ? !name.equals(group.name) : group.name != null) return false;
-        if (users != null ? !users.equals(group.users) : group.users != null) return false;
-        return moderators != null ? moderators.equals(group.moderators) : group.moderators == null;
+        return name != null ? name.equals(group.name) : group.name == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (users != null ? users.hashCode() : 0);
-        result = 31 * result + (moderators != null ? moderators.hashCode() : 0);
         return result;
     }
 }

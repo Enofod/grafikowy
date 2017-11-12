@@ -1,10 +1,13 @@
 package net.grafikowy.website.user.controller.dto;
 
+import net.grafikowy.website.user.model.User;
 import org.hibernate.validator.constraints.Email;
 
-import javax.validation.constraints.NotNull;
+/* Simple means that no grop details are there */
+public class SimpleUserDetailsDTO {
 
-public class UserDetailsDTO {
+    private long id;
+
     @Email
     private String email;
 
@@ -12,14 +15,40 @@ public class UserDetailsDTO {
     private String lastName;
     private String phone;
 
-    public UserDetailsDTO(String email, String firstName, String lastName, String phone) {
+    public SimpleUserDetailsDTO(String email, String firstName, String lastName, String phone) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
     }
 
-    public UserDetailsDTO() {
+
+    public SimpleUserDetailsDTO(long id, String email, String firstName, String lastName, String phone) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+    }
+
+
+    public SimpleUserDetailsDTO(User user) {
+        id = user.getId();
+        email = user.getEmail();
+        firstName = user.getFirstName();
+        lastName = user.getLastName();
+        phone = user.getPhone();
+    }
+
+    public SimpleUserDetailsDTO() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {
