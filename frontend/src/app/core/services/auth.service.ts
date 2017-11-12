@@ -36,11 +36,19 @@ export class AuthService {
   }
 
   getUserEmail(): string {
-    return this.jwtHelper.decodeToken(this.getToken()).sub;
+    const authToken = this.getToken();
+    if (authToken == null) {
+      return null;
+    }
+    return this.jwtHelper.decodeToken(authToken).sub;
   }
 
   getUserRoles(): string[] {
-    return this.jwtHelper.decodeToken(this.getToken()).auth;
+    const authToken = this.getToken();
+    if (authToken == null) {
+      return null;
+    }
+    return this.jwtHelper.decodeToken(authToken).auth;
   }
 
   isTokenExpired(): boolean {

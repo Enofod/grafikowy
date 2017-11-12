@@ -16,7 +16,7 @@ public class GroupInitLoader {
     public void load() throws GroupNotFoundException {
         String firstGroupName = "Kotleciki";
         Group group1 = groupService.createGroup(firstGroupName);
-        String secondGroupName = "Kotleciki";
+        String secondGroupName = "Schaboszczaki";
         Group group2 = groupService.createGroup(secondGroupName);
 
         long groupOneId = group1.getId();

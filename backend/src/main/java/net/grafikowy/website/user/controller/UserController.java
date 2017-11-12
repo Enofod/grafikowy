@@ -4,7 +4,7 @@ import io.jsonwebtoken.Jwts;
 import net.grafikowy.website.config.SecurityProperties;
 import net.grafikowy.website.user.constants.AuthorityConstant;
 import net.grafikowy.website.user.controller.dto.SignUpUserDTO;
-import net.grafikowy.website.user.controller.dto.SimpleUserDetailsDTO;
+import net.grafikowy.website.user.controller.dto.UserDetailsDTO;
 import net.grafikowy.website.user.controller.exception.UserNotFoundException;
 import net.grafikowy.website.user.model.User;
 import net.grafikowy.website.user.service.UserService;
@@ -36,14 +36,14 @@ public class UserController {
     }
 
     @GetMapping("/{userEmail}")
-    public SimpleUserDetailsDTO getUser(@PathVariable String userEmail) throws UserNotFoundException {
+    public UserDetailsDTO getUser(@PathVariable String userEmail) throws UserNotFoundException {
         User storedUser = userService.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + "not found"));
-        return new SimpleUserDetailsDTO(storedUser.getEmail(), storedUser.getFirstName(), storedUser.getLastName(), storedUser.getPhone());
+        return new UserDetailsDTO(storedUser);
     }
 
     // ITS PROBABLY USELESS, BECOUSE THIS INFORMATION IS ON FRONTEND (JWT) - NO NEED TO CALL
     @GetMapping("/whoAmI")
-    public SimpleUserDetailsDTO whoAmI(HttpServletRequest request) throws UserNotFoundException {
+    public UserDetailsDTO whoAmI(HttpServletRequest request) throws UserNotFoundException {
         String token = request.getHeader(securityProperties.getHeaderName());
 
         String userEmail = Jwts.parser()
@@ -52,6 +52,6 @@ public class UserController {
                 .getBody().getSubject();
 
         User storedUser = userService.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + "not found"));
-        return new SimpleUserDetailsDTO(storedUser.getEmail(), storedUser.getFirstName(), storedUser.getLastName(), storedUser.getPhone());
+        return new UserDetailsDTO(storedUser.getEmail(), storedUser.getFirstName(), storedUser.getLastName(), storedUser.getPhone());
     }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { User } from '../../model/user';
 import { UserService } from '../../services/user.service';
-import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -12,12 +11,12 @@ export class UserComponent implements OnInit {
 
   loggedUser: User;
 
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getUserByEmail(this.authService.getUserEmail()).subscribe(user => {
+    this.userService.getCurrentUserDetails().subscribe(user => {
+      console.log(user);
       this.loggedUser = user;
-      this.loggedUser.roles = this.authService.getUserRoles();
     });
   }
 

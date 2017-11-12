@@ -5,7 +5,7 @@ import { UserAuthGuard } from './core/guards/user-auth.guard';
 import { AdminAuthGuard } from './core/guards/admin-auth.guard';
 
 const routes: Routes = [
-  { path: 'users', component: UserComponent, canActivate: [AdminAuthGuard] }
+  { path: 'users', component: UserComponent, canActivate: [UserAuthGuard] }
 ];
 
 @NgModule({

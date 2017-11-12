@@ -7,7 +7,7 @@
       <button mat-button (click)="openLoginDialog()">Zaloguj</button>
     </div>
     <div class="menu" *ngIf="isLoggedIn()" fxFlex="30%">
-        <a mat-button routerLink="/users">Zarzadzaj profilem</a>
+        <a mat-button routerLink="/users">{{ loggedUser.firstName }} {{ loggedUser.lastName }}</a>
         <button mat-button (click)="logout()" fxFlexAlign="right">Wyloguj</button>
       </div>
   </div>
