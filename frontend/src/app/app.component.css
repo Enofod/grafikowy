@@ -1,1 +1,12 @@
+app-root {
+    align-self: stretch;
+    display: inline-block;
+}
 
+header {
+    display: fixed
+}
+
+mat-sidenav {
+    max-width: 20%;
+}

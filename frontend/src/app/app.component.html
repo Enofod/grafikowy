@@ -1,5 +1,21 @@
-<div [class.dark-theme]="isDarkTheme()">
-  <app-header></app-header>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+<div [class.dark-theme]="isDarkTheme()" fxFlexFill fxLayout="column">
+
+  <header> 
+    <app-header></app-header>
+  </header>
+
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav mode="side" opened="true">
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+
+    <div fxFlex>
+        <router-outlet></router-outlet>
+    </div>
+
+    <footer>
+        <app-footer></app-footer>
+    </footer>
+  </mat-sidenav-container>
+  
 </div>

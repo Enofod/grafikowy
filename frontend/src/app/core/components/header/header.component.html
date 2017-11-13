@@ -1,9 +1,16 @@
-<mat-toolbar fxLayout="row" fxLayoutAlign="center center" color="primary">
-  <div fxFlex=70% class="navigationBar">
-    <div class="logo" fxFlex="70%">
+<mat-toolbar fxLayout="row" color="primary">
+  <div fxFlex class="navigationBar">
+
+    <div class="logo" fxFlex="10%" fxLayoutAlign="start center">
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <div class="logo" fxFlex="60%">
       <a mat-button routerLink="/">Grafikowy</a>
     </div>
-    <div class="menu" *ngIf="!isLoggedIn()" fxFlex="30%">
+    <div class="menu" *ngIf="!isLoggedIn()" fxFlex="30%" fxLayoutAlign="end center">
       <button mat-button (click)="openLoginDialog()">Zaloguj</button>
       <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
         <mat-icon>more_vert</mat-icon>
@@ -13,9 +20,10 @@
       </mat-menu>
     </div>
 
-    <div class="menu" *ngIf="isLoggedIn()" fxFlex="30%">
+    <div class="menu" *ngIf="isLoggedIn()" fxFlex="30%" fxLayoutAlign="end center">
       <a mat-button routerLink="/users">{{ loggedUser.firstName }} {{ loggedUser.lastName }}</a>
       <a mat-button routerLink="/scheduler">Scheduler</a>
+
       <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
         <mat-icon>more_vert</mat-icon>
       </button>

@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../model/user';
 import { environment } from '../../../../environments/environment';
+import { SidenavService } from '../../services/sidenav.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,10 @@ import { environment } from '../../../../environments/environment';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private authService: AuthService, private userService: UserService) { }
+  constructor(private dialog: MatDialog,
+    private authService: AuthService,
+    private userService: UserService,
+    private sidenavService: SidenavService) { }
 
   loggedUser: User;
   darkThemeChecked = false;
@@ -54,5 +58,12 @@ export class HeaderComponent implements OnInit {
       localStorage.setItem(environment.themeColor, 'dark');
     }
   }
+
+  public toggleSidenav() {
+    this.sidenavService
+      .toggle()
+      .then(() => { });
+  }
+
 
 }

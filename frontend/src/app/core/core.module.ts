@@ -18,9 +18,11 @@ import { UserComponent } from './components/user/user.component';
 import { AuthService } from './services/auth.service';
 import { ApiClientService } from './services/api-client.service';
 import { UserService } from './services/user.service';
+import { SidenavService } from './services/sidenav.service';
 
 import { UserAuthGuard } from './guards/user-auth.guard';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
   imports: [
@@ -34,7 +36,8 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    SidenavComponent
   ],
   declarations: [
     HeaderComponent,
@@ -42,12 +45,14 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
     Error404Component,
     HeaderComponent,
     LoginDialogComponent,
-    UserComponent
+    UserComponent,
+    SidenavComponent
   ],
   providers: [
     AuthService,
     ApiClientService,
     UserService,
+    SidenavService,
     UserAuthGuard,
     AdminAuthGuard
   ],
