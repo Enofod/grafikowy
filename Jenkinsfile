@@ -18,7 +18,7 @@ def checkout() {
 def runBackend() {
     stage('Run backend') {
         sh 'cd ./backend'
-        sh "gradlew bootRun"
+        sh "./gradlew bootRun"
     }
 }
 
