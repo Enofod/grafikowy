@@ -31,6 +31,7 @@ def runFrontend() {
             withNPM(npmrcConfig: 'npm-custom-config') {
                 sh 'npm install'
                 sh 'ng build'
+                echo 'Moze teraz?'
             }
         }
     }
