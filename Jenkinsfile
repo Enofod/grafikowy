@@ -8,13 +8,13 @@ node() {
     }
 }
 
-runBackend() {
+def runBackend() {
     stage('Run backend') {
         sh './backend/gradlew bootRun'
     }
 }
 
-runFrontend() {
+def runFrontend() {
     stage('Run frontend') {
         sh 'cd ./frontend'
         sh 'npm install'
