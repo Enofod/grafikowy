@@ -1,5 +1,4 @@
 node() {
-    currentBuild.result = "SUCCESS"
     try {
         checkout()
         runBackend()
@@ -18,7 +17,7 @@ def checkout() {
 
 def runBackend() {
     stage('Run backend') {
-        sh './backend/gradlew bootRun'
+        sh "./backend/gradlew bootRun"
     }
 }
 
