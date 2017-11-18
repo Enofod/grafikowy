@@ -19,7 +19,7 @@ def runBackend() {
     stage('Run backend') {
         dir ('backend') {
             sh "./gradlew clean build"
-            sh "sudo cp ./build/libs/grafikowy-backend.jar /etc/init.d/grafikowy-backend /var/grafikowy"
+            sh "sudo cp ./build/libs/grafikowy-backend.jar /var/grafikowy"
             sh "sudo service grafikowy-backend start"
         }
     }
