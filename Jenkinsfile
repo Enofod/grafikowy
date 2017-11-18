@@ -27,11 +27,12 @@ def runBackend() {
 
 def runFrontend() {
     stage('Run frontend') {
-        MainNpmrcConfig
-        dir ('frontend') {
-            withNPM(npmrcConfig:'MainNpmrcConfig') {
-                sh 'npm install'
-                sh 'ng build'
+        withNPM(npmrcConfig:'npm-custom-config') {
+            dir ('frontend') {
+                withNPM(npmrcConfig:'MainNpmrcConfig') {
+                    sh 'npm install'
+                    sh 'ng build'
+                }
             }
         }
     }
