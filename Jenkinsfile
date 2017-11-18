@@ -19,8 +19,9 @@ def runBackend() {
     stage('Run backend') {
         dir ('backend') {
             sh "./gradlew clean build"
-            sh "ln -s ./build/libs/grafikowy-backend.jar /etc/init.d/grafikowy-backend"
-            sh "service grafikowy-backend start"
+            sh "sudo ln -s ./build/libs/grafikowy-backend.jar /etc/init.d/grafikowy-backend"
+            sh "sudo chmod +x /etc/init.d/tomcat7-supersite"
+            sh "sudo service grafikowy-backend start"
         }
     }
 }
