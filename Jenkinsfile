@@ -19,8 +19,8 @@ def runBackend() {
     stage('Run backend') {
         dir ('backend') {
             sh "./gradlew clean build"
+            sh "sudo rm /etc/init.d/grafikowy-backend"
             sh "sudo ln -s ./build/libs/grafikowy-backend.jar /etc/init.d/grafikowy-backend"
-            sh "sudo chmod +x /etc/init.d/grafikowy-backend"
             sh "sudo service grafikowy-backend start"
         }
     }
