@@ -3,8 +3,12 @@ app-root {
     display: inline-block;
 }
 
-header {
-    display: fixed
+header-when-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
 }
 
 mat-sidenav {
