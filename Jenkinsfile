@@ -20,16 +20,19 @@ def runBackend() {
         dir ('backend') {
             sh "./gradlew clean build"
             sh "sudo cp ./build/libs/grafikowy-backend.jar /var/grafikowy"
-            sh "sudo service grafikowy-backend start"
+            sh "sudo service grafikowy-backend restart"
         }
     }
 }
 
 def runFrontend() {
     stage('Run frontend') {
+        MainNpmrcConfig
         dir ('frontend') {
-            sh 'npm install'
-            sh 'ng serve'
+            withNPM(npmrcConfig:'MainNpmrcConfig') {
+                sh 'npm install'
+                sh 'ng build'
+            }
         }
     }
 }
