@@ -1,10 +1,18 @@
 node() {
     currentBuild.result = "SUCCESS"
     try {
-        runBackend();
+        checkout()
+        runBackend()
+        runFrontend()
     } catch (err) {
         echo err
         currentBuild.result = "FAILURE"
+    }
+}
+
+def checkout() {
+    stage('Checkout'){
+        checkout scm
     }
 }
 
