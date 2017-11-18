@@ -5,7 +5,7 @@
   </header>
 
   <mat-sidenav-container fxFlexFill>
-    <mat-sidenav #sidenav mode="side" opened="true">
+    <mat-sidenav #sidenav mode="side" opened="true" *ngIf="isLoggedIn()">
       <app-sidenav></app-sidenav>
     </mat-sidenav>
 

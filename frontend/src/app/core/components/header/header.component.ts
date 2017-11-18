@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../model/user';
 import { environment } from '../../../../environments/environment';
 import { SidenavService } from '../../services/sidenav.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +15,14 @@ import { SidenavService } from '../../services/sidenav.service';
 })
 export class HeaderComponent implements OnInit {
 
+  loggedUser: User;
+  darkThemeChecked = false;
+
   constructor(private dialog: MatDialog,
     private authService: AuthService,
     private userService: UserService,
-    private sidenavService: SidenavService) { }
-
-  loggedUser: User;
-  darkThemeChecked = false;
+    private sidenavService: SidenavService,
+    private router: Router) { }
 
   ngOnInit() {
     this.loadLoggedInUser();
@@ -42,6 +44,8 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.loggedUser = null;
+
+    this.router.navigate(["/"]); //for the case 'the user logout I want him to be redirected to home.
   }
 
   loadLoggedInUser(): void {
