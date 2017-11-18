@@ -22,6 +22,9 @@ repositories {
 	mavenCentral()
 }
 
+jar {
+	archiveName = 'grafikowy-backend.jar'
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
