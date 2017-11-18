@@ -10,14 +10,14 @@ node() {
 }
 
 def checkout() {
-    stage('Checkout'){
+    stage('Checkout') {
         checkout scm
     }
 }
 
 def runBackend() {
     stage('Run backend') {
-        dir ('backend') {
+        dir('backend') {
             sh "./gradlew clean build"
             sh "sudo cp ./build/libs/grafikowy-backend.jar /var/grafikowy"
             sh "sudo service grafikowy-backend restart"
@@ -27,12 +27,10 @@ def runBackend() {
 
 def runFrontend() {
     stage('Run frontend') {
-        withNPM(npmrcConfig:'npm-custom-config') {
-            dir ('frontend') {
-                withNPM(npmrcConfig:'MainNpmrcConfig') {
-                    sh 'npm install'
-                    sh 'ng build'
-                }
+        dir('frontend') {
+            withNPM(npmrcConfig: 'npm-custom-config') {
+                sh 'npm install'
+                sh 'ng build'
             }
         }
     }
