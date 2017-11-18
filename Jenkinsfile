@@ -17,15 +17,17 @@ def checkout() {
 
 def runBackend() {
     stage('Run backend') {
-        sh 'cd ./backend'
-        sh "./gradlew bootRun"
+        dir ('backend') {
+            sh "./gradlew bootRun"
+        }
     }
 }
 
 def runFrontend() {
     stage('Run frontend') {
-        sh 'cd ./frontend'
-        sh 'npm install'
-        sh 'ng serve'
+        dir ('frontend') {
+            sh 'npm install'
+            sh 'ng serve'
+        }
     }
 }
