@@ -5,7 +5,7 @@ node() {
         runBackend()
         runFrontend()
     } catch (err) {
-        echo err
+        echo err.getMessage()
         currentBuild.result = "FAILURE"
     }
 }
