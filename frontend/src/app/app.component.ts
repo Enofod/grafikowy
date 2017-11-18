@@ -3,6 +3,7 @@ import { environment } from '../environments/environment';
 import { MatSidenav } from '@angular/material';
 
 import { SidenavService } from './core/services/sidenav.service';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,9 @@ import { SidenavService } from './core/services/sidenav.service';
 export class AppComponent implements OnInit {
   @ViewChild('sidenav') public sidenav: MatSidenav;
 
-  constructor(private sidenavService: SidenavService) { }
+  constructor(
+    private sidenavService: SidenavService,
+    private authService: AuthService) { }
 
   public ngOnInit(): void {
     // Store sidenav to service
@@ -23,5 +26,9 @@ export class AppComponent implements OnInit {
   isDarkTheme() {
     const themeColor = localStorage.getItem(environment.themeColor);
     return themeColor != null && themeColor === 'dark';
+  }
+
+  isLoggedIn() {
+    return this.authService.isUserOrAdmin();
   }
 }

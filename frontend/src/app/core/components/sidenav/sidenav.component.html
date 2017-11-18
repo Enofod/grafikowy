@@ -1,2 +1,18 @@
-Bardo mocno lubie kotlety! Bardo mocno lubie kotlety! Bardo mocno lubie kotlety! Bardo mocno lubie kotlety!
-
+<div *ngIf="loggedUser">
+  <div *ngIf="loggedUser.usingGroups">
+    <p>Twoje grupy</p>
+    <ul>
+      <li *ngFor="let usingGroup of loggedUser.usingGroups">
+        {{ usingGroup.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="loggedUser.moderatingGroups">
+        <p>Zarządzaj grupą</p>
+        <ul>
+          <li *ngFor="let moderatingGroup of loggedUser.moderatingGroups">
+            {{ moderatingGroup.name }}
+          </li>
+        </ul>
+      </div>
+</div>

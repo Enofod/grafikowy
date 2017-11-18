@@ -2,7 +2,7 @@
   <div fxFlex class="navigationBar">
 
     <div class="logo" fxFlex="10%" fxLayoutAlign="start center">
-      <button mat-icon-button (click)="toggleSidenav()">
+      <button mat-icon-button (click)="toggleSidenav()" *ngIf="isLoggedIn()">
         <mat-icon>menu</mat-icon>
       </button>
     </div>
