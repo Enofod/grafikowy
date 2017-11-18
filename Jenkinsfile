@@ -28,11 +28,8 @@ def runBackend() {
 def runFrontend() {
     stage('Run frontend') {
         dir('frontend') {
-            withNPM(npmrcConfig: 'npm-custom-config') {
-                sh 'npm install'
-                sh 'ng build'
-                echo 'Moze teraz?'
-            }
+            sh 'npm install'
+            sh 'ng build'
         }
     }
 }
