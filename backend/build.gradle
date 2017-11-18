@@ -26,6 +26,10 @@ jar {
 	archiveName = 'grafikowy-backend.jar'
 }
 
+springBoot {
+	executable = true
+}
+
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
