@@ -1,20 +1,21 @@
-<div [ngClass]="'qpa'" [class.dark-theme]="isDarkTheme()">
+<div class="site-container" [class.dark-theme]="isDarkTheme()">
 
-  <header> 
+  <header class="header-wrapper">
     <app-header></app-header>
   </header>
 
-  <mat-sidenav-container [ngClass]="'dupa'">
-    <mat-sidenav #sidenav mode="side" opened="false">
+  <mat-sidenav-container class="content">
+    <mat-sidenav #sidenav mode="side" opened="false" fixedInViewport="true">
       <app-sidenav></app-sidenav>
     </mat-sidenav>
 
     <div>
-        <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
+
   </mat-sidenav-container>
-  
-    <footer>
-        <app-footer></app-footer>
+
+  <footer>
+      <app-footer></app-footer>
     </footer>
 </div>

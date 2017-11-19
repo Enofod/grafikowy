@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../model/user';
 import { environment } from '../../../../environments/environment';
@@ -18,13 +19,13 @@ declare var require: any;
 export class HeaderComponent implements OnInit {
 
   loggedUser: User;
-  darkThemeChecked = false;
 
   constructor(private dialog: MatDialog,
     private authService: AuthService,
     private userService: UserService,
     private sidenavService: SidenavService,
-    private router: Router) { }
+    private router: Router,
+    private themeService: ThemeService) { }
 
   ngOnInit() {
     this.loadLoggedInUser();
@@ -47,7 +48,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.loggedUser = null;
 
-    this.router.navigate(["/"]); //for the case 'the user logout I want him to be redirected to home.
+    this.router.navigate(['/']); //for the case 'the user logout I want him to be redirected to home.
   }
 
   loadLoggedInUser(): void {
@@ -55,19 +56,13 @@ export class HeaderComponent implements OnInit {
       this.loggedUser = user;
     });
   }
-  
+
   isDarkTheme() {
-    const themeColor = localStorage.getItem(environment.themeColor);
-    return themeColor != null && themeColor === 'dark';
+    return this.themeService.isDarkTheme();
   }
 
   changeTheme(): void {
-    const currentTheme = localStorage.getItem(environment.themeColor);
-    if (currentTheme === 'dark') {
-      localStorage.setItem(environment.themeColor, 'light');
-    } else {
-      localStorage.setItem(environment.themeColor, 'dark');
-    }
+    this.themeService.switchTheme();
   }
 
   public toggleSidenav() {

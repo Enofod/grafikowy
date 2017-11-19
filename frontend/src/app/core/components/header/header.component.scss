@@ -1,25 +1,26 @@
 @import '~@angular/material/theming';
-
 @import '../../../../grafikowy-theme.scss';
-
 $primary: map-get($light-theme, primary);
 
-.dark {
-    $primary: map-get($dark-theme, primary);
-
-    .navigationBar {
-        display: flex;
-        width: 100%;
-        background-color:mat-color($primary, 100);
-    }    
+/deep/ .mat-toolbar {
+  background-color: red;
 }
 
 .navigationBar {
-    display: flex;
-    width: 100%;
-    background-color:mat-color($primary, 100);
+  display: flex;
+  width: 100%;
 }
 
-.qwerty {
-    flex: 1;
+.logo {
+  flex: 1;
+}
+
+.dark {
+  $primary: map-get($dark-theme, primary);
+  /deep/ .mat-toolbar {
+    background-color: blue;
+  }
+  .navigationBar2 {
+    background-color: mat-color($primary, 100);
+  }
 }

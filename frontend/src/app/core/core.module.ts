@@ -19,6 +19,7 @@ import { AuthService } from './services/auth.service';
 import { ApiClientService } from './services/api-client.service';
 import { UserService } from './services/user.service';
 import { SidenavService } from './services/sidenav.service';
+import { ThemeService } from './services/theme.service';
 
 import { UserAuthGuard } from './guards/user-auth.guard';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
@@ -53,6 +54,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     ApiClientService,
     UserService,
     SidenavService,
+    ThemeService,
     UserAuthGuard,
     AdminAuthGuard
   ],

@@ -1,0 +1,17 @@
+@import '~@angular/material/theming';
+@import '../../../../grafikowy-theme.scss';
+
+$primary: map-get($light-theme, primary);
+
+.sidenav-content {
+    background-color: mat-color($primary, 100);
+}
+
+
+.dark {
+    $primary: map-get($dark-theme, primary);
+
+    .sidenav-content {
+        background-color:mat-color($primary, 100);
+    }
+}

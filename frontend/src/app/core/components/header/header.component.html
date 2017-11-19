@@ -1,13 +1,13 @@
-<mat-toolbar [class.dark]="isDarkTheme()" color="primary">
+<mat-toolbar class="header-wrapper" [class.dark]="isDarkTheme()">
   <div class="navigationBar">
 
-    <div class="logo">
+    <div class="sidenavToogle">
       <button mat-icon-button (click)="toggleSidenav()" *ngIf="isLoggedIn()">
         <mat-icon>menu</mat-icon>
       </button>
     </div>
 
-    <div class="qwerty">
+    <div class="logo">
       <a mat-button routerLink="/">Grafikowy</a>
     </div>
     <div class="menu" *ngIf="!isLoggedIn()">
