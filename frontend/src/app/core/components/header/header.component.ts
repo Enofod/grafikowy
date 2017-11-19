@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styles: [require('./header.component.scss')]
 })
 export class HeaderComponent implements OnInit {
 
@@ -52,6 +52,11 @@ export class HeaderComponent implements OnInit {
     this.userService.getCurrentUserDetails().subscribe(user => {
       this.loggedUser = user;
     });
+  }
+  
+  isDarkTheme() {
+    const themeColor = localStorage.getItem(environment.themeColor);
+    return themeColor != null && themeColor === 'dark';
   }
 
   changeTheme(): void {

@@ -1,0 +1,25 @@
+@import '~@angular/material/theming';
+
+@import '../../../../grafikowy-theme.scss';
+
+$primary: map-get($light-theme, primary);
+
+.dark {
+    $primary: map-get($dark-theme, primary);
+
+    .navigationBar {
+        display: flex;
+        width: 100%;
+        background-color:mat-color($primary, 100);
+    }    
+}
+
+.navigationBar {
+    display: flex;
+    width: 100%;
+    background-color:mat-color($primary, 100);
+}
+
+.qwerty {
+    flex: 1;
+}

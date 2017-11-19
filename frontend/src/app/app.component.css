@@ -1,16 +1,19 @@
-app-root {
-    align-self: stretch;
-    display: inline-block;
-}
-
-header-when-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 mat-sidenav {
     width: 15%;
+}
+
+.qpa {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.dupa {
+    flex: 1;
 }

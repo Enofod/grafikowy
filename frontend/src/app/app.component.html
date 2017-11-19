@@ -1,21 +1,20 @@
-<div [class.dark-theme]="isDarkTheme()" fxFlexFill fxLayout="column">
+<div [ngClass]="'qpa'" [class.dark-theme]="isDarkTheme()">
 
   <header> 
     <app-header></app-header>
   </header>
 
-  <mat-sidenav-container fxFlexFill>
+  <mat-sidenav-container [ngClass]="'dupa'">
     <mat-sidenav #sidenav mode="side" opened="false">
       <app-sidenav></app-sidenav>
     </mat-sidenav>
 
-    <div fxFlex>
+    <div>
         <router-outlet></router-outlet>
     </div>
-
+  </mat-sidenav-container>
+  
     <footer>
         <app-footer></app-footer>
     </footer>
-  </mat-sidenav-container>
-  
 </div>
