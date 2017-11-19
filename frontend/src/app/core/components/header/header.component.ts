@@ -8,6 +8,8 @@ import { environment } from '../../../../environments/environment';
 import { SidenavService } from '../../services/sidenav.service';
 import { Router } from '@angular/router';
 
+declare var require: any;
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
