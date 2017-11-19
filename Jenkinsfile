@@ -3,6 +3,7 @@ node() {
         checkout()
         runBackend()
         runFrontend()
+        currentBuild.result = "SUCCESS"
     } catch (err) {
         echo err.getMessage()
         currentBuild.result = "FAILURE"
@@ -28,8 +29,8 @@ def runBackend() {
 def runFrontend() {
     stage('Run frontend') {
         dir('frontend') {
-            sh 'npm install'
-            sh 'ng build'
+            sh 'sudo npm install'
+            sh 'sudo ng build'
         }
     }
 }
