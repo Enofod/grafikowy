@@ -1,4 +1,4 @@
-<mat-toolbar class="header-wrapper" [class.dark]="isDarkTheme()">
+<mat-toolbar class="headerWrapper" [class.dark]="isDarkTheme()">
   <div class="navigationBar">
 
     <div class="sidenavToogle">
@@ -17,7 +17,7 @@
           <mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
             <button mat-menu-item (click)="changeTheme()">Zmien motyw</button>
           </mat-menu>
-      <button mat-button (click)="openLoginDialog()">Zaloguj</button>
+      <button mat-raised-button color="primary" (click)="openLoginDialog()">Zaloguj</button>
     </div>
 
     <div class="menu" *ngIf="isLoggedIn()">

@@ -2,16 +2,17 @@
 @import '../../../../grafikowy-theme.scss';
 
 $primary: map-get($light-theme, primary);
+$accent: map-get($light-theme, accent);
 
 .sidenav-content {
-    background-color: mat-color($primary, 100);
+    background-color: mat-color($accent, 100);
 }
 
-
 .dark {
+    $accent: map-get($dark-theme, accent);
     $primary: map-get($dark-theme, primary);
 
-    .sidenav-content {
-        background-color:mat-color($primary, 100);
+    &.sidenav-content {
+        background-color: mat-color($primary, 100);
     }
 }
