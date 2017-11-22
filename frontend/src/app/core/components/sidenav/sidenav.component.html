@@ -1,20 +1,27 @@
 <div class="sidenav-content" [class.dark]="isDarkTheme()">
-  <div *ngIf="loggedUser">
-    <div *ngIf="loggedUser.usingGroups">
-      <p>Twoje grupy</p>
-      <ul>
-        <li *ngFor="let usingGroup of loggedUser.usingGroups">
-          {{ usingGroup.name }}
-        </li>
-      </ul>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Twoje grupy
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngIf="loggedUser">
+      <div *ngFor="let usingGroup of loggedUser.usingGroups">
+        <a class="sidenavButton" mat-button routerLink=".">{{ usingGroup.name }}</a>
+      </div>
     </div>
-    <div *ngIf="loggedUser.moderatingGroups">
-      <p>Zarządzaj grupą</p>
-      <ul>
-        <li *ngFor="let moderatingGroup of loggedUser.moderatingGroups">
-          {{ moderatingGroup.name }}
-        </li>
-      </ul>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Zarządzane grupy
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngIf="loggedUser">
+      <div *ngFor="let moderatingGroup of loggedUser.moderatingGroups">
+        <a class="sidenavButton" mat-button routerLink=".">{{ moderatingGroup.name }}</a>
+      </div>
     </div>
-  </div>
+  </mat-expansion-panel>
 </div>

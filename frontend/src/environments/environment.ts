@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://80.211.194.224:8090/',
+  apiUrl: 'http://localhost:8090/',
   authTokenLocalStorageKey: 'grafikowyAuthToken',
   themeColor: 'grafikowyThemeColor'
 };

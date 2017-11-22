@@ -4,7 +4,17 @@
 $primary: map-get($light-theme, primary);
 $accent: map-get($light-theme, accent);
 
-.sidenav-content {
+.navigationGroupName {
+    width: 100%;
+    text-align: left;
+}
+
+.sidenavButton {
+    width: 100%;
+    text-align: left;
+}
+
+.sidenavContent {
     background-color: mat-color($accent, 100);
 }
 

@@ -1,10 +1,10 @@
 <h2 mat-dialog-title>Logowanie</h2>
 <mat-dialog-content>
-  <form #loginForm="ngForm" (ngSubmit)="authenticate()" fxLayout="column">
-    <mat-form-field>
+  <form #loginForm="ngForm" (ngSubmit)="authenticate()" fxLayout="column" class="loginForm">
+    <mat-form-field class="emailForm">
       <input matInput [(ngModel)]="email" name="email" type="Email" placeholder="Email" [formControl]="emailFormControl" required>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="passwordForm">
       <input matInput [(ngModel)]="password" name="password" placeholder="Haslo" [type]="passwordHide ? 'password' : 'text'" required>
       <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
