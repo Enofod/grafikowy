@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController()
+@RestController
 @RequestMapping("/groups")
 public class GroupController {
 
@@ -20,6 +20,11 @@ public class GroupController {
     @GetMapping("/all")
     public List<GroupDetailsDTO> getAll() {
         return groupService.getAll().stream().map(group -> new GroupDetailsDTO(group)).collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}")
+    public GroupDetailsDTO getById(Long id) {
+        return new GroupDetailsDTO(groupService.getOne(id));
     }
 
     @PostMapping("/{groupName}")

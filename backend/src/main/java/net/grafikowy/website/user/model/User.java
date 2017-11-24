@@ -1,6 +1,7 @@
 package net.grafikowy.website.user.model;
 
 import net.grafikowy.website.group.model.Group;
+import net.grafikowy.website.shift.model.Shift;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,7 +20,7 @@ public class User {
     private String lastName;
     private String phone;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_authority",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -27,7 +28,7 @@ public class User {
     )
     private Set<Authority> authorities = new HashSet<>();
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_group",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -35,13 +36,21 @@ public class User {
     )
     private Set<Group> usingGroups = new HashSet<>();
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "moderator_group",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "group_id", referencedColumnName = "id")}
     )
     private Set<Group> moderatingGroups = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_shifts",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "shift_id", referencedColumnName = "id")}
+    )
+    private Set<Shift> shifts = new HashSet<>();
 
     public User(String email, String password, String firstName, String lastName, String phone) {
         this.email = email;
@@ -126,6 +135,22 @@ public class User {
         this.moderatingGroups = moderatingGroups;
     }
 
+    public Set<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Set<Shift> shifts) {
+        this.shifts = shifts;
+    }
+
+    public boolean addShift(Shift shift) {
+        return shifts.add(shift);
+    }
+
+    public boolean removeShift(Shift shift) {
+        return shifts.remove(shift);
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -138,6 +163,7 @@ public class User {
                 ", authorities=" + authorities +
                 ", usingGroups=" + usingGroups +
                 ", moderatingGroups=" + moderatingGroups +
+                ", shifts=" + shifts +
                 '}';
     }
 

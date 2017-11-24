@@ -3,6 +3,9 @@ package net.grafikowy.website.user.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import net.grafikowy.website.config.SecurityProperties;
+import net.grafikowy.website.group.model.Group;
+import net.grafikowy.website.shift.model.Shift;
+import net.grafikowy.website.shift.model.ShiftType;
 import net.grafikowy.website.user.model.User;
 import net.grafikowy.website.user.repository.AuthorityRepository;
 import net.grafikowy.website.user.repository.UserRepository;
@@ -12,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -40,5 +44,9 @@ public class UserService {
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public Optional<User> findOne(Long id) {
+        return Optional.ofNullable(userRepository.findOne(id));
     }
 }

@@ -1,5 +1,5 @@
 <div class="sidenav-content" [class.dark]="isDarkTheme()">
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="loggedUser && loggedUser.usingGroups.length > 0">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Twoje grupy
@@ -12,7 +12,7 @@
     </div>
   </mat-expansion-panel>
 
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="loggedUser && loggedUser.moderatingGroups.length > 0">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Zarządzane grupy
@@ -20,7 +20,7 @@
     </mat-expansion-panel-header>
     <div *ngIf="loggedUser">
       <div *ngFor="let moderatingGroup of loggedUser.moderatingGroups">
-        <a class="sidenavButton" mat-button routerLink=".">{{ moderatingGroup.name }}</a>
+        <a class="sidenavButton" mat-button [routerLink]="['scheduler', moderatingGroup.id]">{{ moderatingGroup.name }}</a>
       </div>
     </div>
   </mat-expansion-panel>

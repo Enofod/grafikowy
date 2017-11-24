@@ -10,11 +10,13 @@ public class InitDataLoader implements InitializingBean {
 
     private UserInitLoader userInitLoader;
     private GroupInitLoader groupInitLoader;
+    private ShiftInitLoader shiftInitLoader;
 
-    public InitDataLoader(AuthorityInitLoader authorityLoader, UserInitLoader userInitLoader, GroupInitLoader groupInitLoader) {
+    public InitDataLoader(AuthorityInitLoader authorityLoader, UserInitLoader userInitLoader, GroupInitLoader groupInitLoader, ShiftInitLoader shiftInitLoader) {
         this.authorityLoader = authorityLoader;
         this.userInitLoader = userInitLoader;
         this.groupInitLoader = groupInitLoader;
+        this.shiftInitLoader = shiftInitLoader;
     }
 
     @Override
@@ -22,5 +24,6 @@ public class InitDataLoader implements InitializingBean {
         authorityLoader.load();
         userInitLoader.load();
         groupInitLoader.load();
+        shiftInitLoader.load();
     }
 }

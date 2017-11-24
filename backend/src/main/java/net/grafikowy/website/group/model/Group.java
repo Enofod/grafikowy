@@ -1,5 +1,6 @@
 package net.grafikowy.website.group.model;
 
+import net.grafikowy.website.shift.model.Shift;
 import net.grafikowy.website.user.model.User;
 
 import javax.persistence.*;
@@ -16,13 +17,16 @@ public class Group {
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL) // TODO: Check if cascade is needed to update user groups
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_group", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL) // TODO: Check if cascade is needed to update user groups
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "moderator_group", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> moderators = new HashSet<>();
+
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    private Set<Shift> shifts;
 
     public Group() {}
 
@@ -74,6 +78,18 @@ public class Group {
         this.moderators = moderators;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Set<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Set<Shift> shifts) {
+        this.shifts = shifts;
+    }
+
     @Override
     public String toString() {
         return "Group{" +
@@ -81,6 +97,7 @@ public class Group {
                 ", name='" + name + '\'' +
                 ", users=" + users +
                 ", moderators=" + moderators +
+                ", shifts=" + shifts +
                 '}';
     }
 

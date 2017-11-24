@@ -9,12 +9,13 @@ import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { SchedulerComponent } from './components/scheduler/scheduler.component';
+import { ScheduleComponent } from './features/components/schedule/schedule.component';
+import { ScheduleService } from './features/services/schedule.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SchedulerComponent,
+    ScheduleComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +25,9 @@ import { SchedulerComponent } from './components/scheduler/scheduler.component';
     CoreModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    ScheduleService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

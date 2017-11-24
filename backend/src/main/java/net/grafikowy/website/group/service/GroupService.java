@@ -27,6 +27,10 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    public Group getOne(Long id) {
+        return groupRepository.findOne(id);
+    }
+
     @Transactional
     public Group createGroup(String groupName) {
         return groupRepository.save(new Group(groupName));
