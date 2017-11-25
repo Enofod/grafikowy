@@ -8,7 +8,7 @@ import { AdminAuthGuard } from './core/guards/admin-auth.guard';
 
 const routes: Routes = [
   { path: 'users', component: UserComponent, canActivate: [UserAuthGuard] },
-  { path: 'scheduler/:id', component: ScheduleComponent, canActivate: [UserAuthGuard] }
+  { path: 'scheduler/:groupId', component: ScheduleComponent, canActivate: [UserAuthGuard] }
 ];
 
 @NgModule({
