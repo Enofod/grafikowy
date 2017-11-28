@@ -12,6 +12,7 @@ import { MatSliderModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import 'rxjs/add/observable/of';
+import { ShiftInDay } from '../../model/schedule/shift-in-day';
 
 @Component({
   selector: 'app-schedule',
@@ -20,7 +21,7 @@ import 'rxjs/add/observable/of';
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
 
-  groupId: any;
+  groupName: string;
   private sub: any;
   private selectedDate: Date = new Date();
   private userNameCellHeaderName = 'Nazwisko';
@@ -43,10 +44,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.groupId = +params.groupId;
+      this.groupName = params.groupName;
       this.updateTableData();
-
-
     });
   }
 
@@ -55,7 +54,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   updateTableData() {
-    this.scheduleService.getScheduleForGroupAtYearAndMonth(this.groupId.toString(), '2017', '11').subscribe(schedule => {
+    this.scheduleService.getScheduleForGroupAtYearAndMonth(this.groupName, this.selectedDate.getFullYear().toString(),
+     (this.selectedDate.getMonth() + 1).toString()).subscribe(schedule => {
       const numberOfDays = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0).getDate();
       this.columnHeaders = this.generateHeaders(numberOfDays);
       this.columns = this.generateColumns(numberOfDays);
@@ -111,14 +111,13 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     let tableRow: string[] = [];
     const tableData: any[] = [];
 
+    console.log(schedule);
     const numberOfPeople = 10;
 
-    const personName = 'Dawid';
-
-    for (let currentPersonIndex = 0; currentPersonIndex < numberOfPeople; currentPersonIndex++) {
-      tableRow.push(personName);
-      for (let currentDay = 1; currentDay <= daysInMonth; currentDay++) {
-        tableRow.push(currentDay.toString() + ' ' + currentPersonIndex);
+    for (const userShift of schedule.userShifts) {
+      tableRow.push(userShift.user.lastName + ' ' + userShift.user.firstName);
+      for (const shift of userShift.shiftInDay) {
+        tableRow.push(shift.shiftType.toString());
       }
 
       tableData.push(tableRow);
@@ -140,6 +139,18 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   goToPreviousMonth(): void {
     this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
     this.updateTableData();
+  }
+
+  getDisplayValueForCell(value: String) {
+    if (value === 'DAY') {
+      return 'D';
+    } else if (value === 'NIGHT') {
+      return 'N';
+    } else if (value === 'NONE'){
+      return '-';
+    } else {
+      return value;
+    }
   }
 }
 

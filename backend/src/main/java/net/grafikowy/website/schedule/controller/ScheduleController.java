@@ -1,5 +1,6 @@
 package net.grafikowy.website.schedule.controller;
 
+import net.grafikowy.website.group.exception.GroupNotFoundException;
 import net.grafikowy.website.schedule.model.Schedule;
 import net.grafikowy.website.schedule.service.ScheduleService;
 import net.grafikowy.website.shift.model.Shift;
@@ -21,10 +22,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/group")
-    public Schedule getScheduleForGroupInSpecifiedYearAndMonth(@RequestParam(name = "groupId") Long groupId, @RequestParam(name = "year") int year, @RequestParam(name = "month") int month) {
-        System.out.println(groupId);
-        System.out.println(year);
-        System.out.println(month);
-        return scheduleService.getSchedule(groupId, year, month);
+    public Schedule getScheduleForGroupInSpecifiedYearAndMonth(@RequestParam(name = "groupName") String groupName, @RequestParam(name = "year") int year, @RequestParam(name = "month") int month) throws GroupNotFoundException {
+        return scheduleService.getSchedule(groupName, year, month);
     }
 }

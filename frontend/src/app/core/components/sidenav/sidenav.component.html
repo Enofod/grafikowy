@@ -20,7 +20,7 @@
     </mat-expansion-panel-header>
     <div *ngIf="loggedUser">
       <div *ngFor="let moderatingGroup of loggedUser.moderatingGroups">
-        <a class="sidenavButton" mat-button [routerLink]="['scheduler', moderatingGroup.id]">{{ moderatingGroup.name }}</a>
+        <a class="sidenavButton" mat-button [routerLink]="['scheduler', moderatingGroup.name]">{{ moderatingGroup.name }}</a>
       </div>
     </div>
   </mat-expansion-panel>

@@ -1,5 +1,6 @@
 package net.grafikowy.website.schedule.service;
 
+import net.grafikowy.website.group.exception.GroupNotFoundException;
 import net.grafikowy.website.group.service.GroupService;
 import net.grafikowy.website.schedule.model.Schedule;
 import net.grafikowy.website.shift.controller.dto.ShiftDayTypeDTO;
@@ -27,9 +28,9 @@ public class ScheduleService {
         this.shiftService = shiftService;
     }
 
-    public Schedule getSchedule(long groupId, int year, int month) {
+    public Schedule getSchedule(String groupName, int year, int month) throws GroupNotFoundException {
         // TODO: Handle exception when group not existing
-        Set<User> usersInGroup = groupService.getOne(groupId).getUsers();
+        Set<User> usersInGroup = groupService.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name " + groupName + " not found.")).getUsers();
         LocalDate startDate = LocalDate.of(year, month, 1);
         LocalDate endDate = LocalDate.of(year, month, startDate.lengthOfMonth());
 

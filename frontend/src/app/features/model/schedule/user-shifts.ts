@@ -3,5 +3,5 @@ import { ShiftInDay } from './shift-in-day';
 
 export class UserShifts {
     user: SimpleUser;
-    userShifts: ShiftInDay[];
+    shiftInDay: ShiftInDay[];
 }

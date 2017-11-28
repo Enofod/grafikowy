@@ -9,8 +9,8 @@ export class ScheduleService {
 
   constructor(private apiClientService: ApiClientService) { }
 
-  getScheduleForGroupAtYearAndMonth(groupId: string, year: string, month: string): Observable<Schedule> {
-    const uri = 'schedule/group?groupId=' + groupId + '&year=' + year + ' &month=' + month;
+  getScheduleForGroupAtYearAndMonth(groupNmae: string, year: string, month: string): Observable<Schedule> {
+    const uri = 'schedule/group?groupName=' + groupNmae + '&year=' + year + ' &month=' + month;
     return this.apiClientService.get<Schedule>(uri);
   }
 
