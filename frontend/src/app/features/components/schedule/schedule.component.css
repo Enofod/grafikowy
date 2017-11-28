@@ -8,6 +8,10 @@ mat-grid-tile {
   overflow-x: scroll;
 }
 
+.monthPicker {
+  display: flex;
+}
+
 /* Structure */
 .example-container {
   display: flex;

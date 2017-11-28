@@ -1,30 +1,33 @@
 <mat-toolbar color="primary">
-    {{groupId}}
-  </mat-toolbar>
+  {{groupId}}
+</mat-toolbar>
 
-  <div class="table-container mat-elevation-z8">
-    <mat-card>
-      <h4>Rows / Columns</h4>
-      <mat-card-content>
-        <mat-slider min="1" max="11" step="1" value="1" vertical="true"  [(ngModel)]="rowSliderValue" (ngModelChange)="updateTableData()"></mat-slider>
-        <mat-slider min="1" max="31" step="1" value="1" [(ngModel)]="columnSliderValue" (ngModelChange)="updateTableData()"></mat-slider>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  
-  <br>
+<div class="table-container mat-elevation-z8">
+  <mat-card>
+    <div class="monthPicker">
+      <button mat-icon-button (click)="goToPreviousMonth()">
+        <mat-icon>arrow_left</mat-icon>
+      </button>
+      <h4>{{ getSelectedDateString() }}</h4>
+      <button mat-icon-button (click)="goToNextMonth()">
+        <mat-icon>arrow_right</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>
 
+<br>
 
-  <div class="table-container mat-elevation-z8">
-    <mat-table #table [dataSource]="dataSource">
-  
-      <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: columnHeaders;"></mat-row>
-  
-      <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
-        <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
-        <mat-cell *cdkCellDef="let row">{{ row[colIndex] }}</mat-cell>
-      </ng-container>
-        
-    </mat-table>
-  </div>
+<div class="table-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+
+    <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnHeaders;"></mat-row>
+
+    <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
+      <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
+      <mat-cell *cdkCellDef="let row">{{ row[colIndex] }}</mat-cell>
+    </ng-container>
+
+  </mat-table>
+</div>

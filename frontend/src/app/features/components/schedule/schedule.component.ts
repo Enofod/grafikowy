@@ -20,24 +20,33 @@ import 'rxjs/add/observable/of';
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
 
-  private groupId: any;
+  groupId: any;
   private sub: any;
+  private selectedDate: Date = new Date();
+  private userNameCellHeaderName = 'Nazwisko';
+  private monthNames: string[] = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec',
+    'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+
+  dataSource: TableDataSource;
+
+  private dataSubject = new BehaviorSubject<any[]>([]);
+
+  columnHeaders: string[] = [];
+  columns: ColumnDefinition[] = [];
+  tableData: string[] = [];
 
   private schedule: Schedule;
 
   constructor(private route: ActivatedRoute, private scheduleService: ScheduleService) {
-    this.dataSource = new tableDataSource(this._dataSubject)
+    this.dataSource = new TableDataSource(this.dataSubject);
   }
 
   ngOnInit() {
-    this.updateTableData();
     this.sub = this.route.params.subscribe(params => {
       this.groupId = +params.groupId;
+      this.updateTableData();
 
-      this.scheduleService.getScheduleForGroupAtYearAndMonth(this.groupId.toString(), '2017', '11').subscribe(schedule => {
-        console.log(schedule);
-        this.schedule = schedule;
-      });
+
     });
   }
 
@@ -45,114 +54,116 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  dataSource: tableDataSource;
-
-  _dataSubject = new BehaviorSubject<any[]>([])
-
-  columnHeaders: string[] = [];
-  columns: object[] = [];
-  tableData: string[] = [];
-
-  columnSliderValue: number;
-  rowSliderValue: number;
-
-
   updateTableData() {
-    this.columnHeaders = this.generateHeaders(this.columnSliderValue);
-    this.columns = this.generateColumns(this.columnSliderValue);
-    this.tableData = this.generateData(this.columnSliderValue, this.rowSliderValue);
+    this.scheduleService.getScheduleForGroupAtYearAndMonth(this.groupId.toString(), '2017', '11').subscribe(schedule => {
+      const numberOfDays = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0).getDate();
+      this.columnHeaders = this.generateHeaders(numberOfDays);
+      this.columns = this.generateColumns(numberOfDays);
+      this.tableData = this.generateData(numberOfDays, schedule);
 
-    this._dataSubject.next(this.tableData)
+      this.dataSubject.next(this.tableData);
+      this.schedule = schedule;
+    });
   }
 
-  generateHeaders(tableColumns: number)                                                           // Create headers, this is just a array of strings
-  {
+  generateHeaders(daysInMonth: number) {
+    const displayedColumns: string[] = [];
 
-    var innerIndex: number = 1;
-    var displayedColumns: string[] = [];
+    displayedColumns.push(this.userNameCellHeaderName);
 
-    displayedColumns.push('Imię');
-    do {
-      displayedColumns.push(innerIndex.toString())
-
+    for (let currentDay = 1; currentDay <= daysInMonth; currentDay++) {
+      displayedColumns.push(currentDay.toString());
     }
-    while (innerIndex++ < tableColumns);
 
     return displayedColumns;
 
   }
 
-  generateColumns(tableColumns: number)                                                           // Create columns, this is an array of objects. The object the holds the headingName, Label and Cell 
-  {
+  generateColumns(daysInMonth: number) {
+    let columnObj: object;
+    const columns: ColumnDefinition[] = [];
 
-    var innerIndex: number = 1;
-    var columnObj: object;
-    var columns: object[] = [];
+    columns.push(new ColumnDefinition(
+      this.userNameCellHeaderName,
+      this.userNameCellHeaderName,
+      []
+    ));
 
-    columnObj = new function () {
-      this.columnDef = "Imię";
-      this.header = "Imię";
-      this.cell = [];
-    }
-
-    columns.push(columnObj)
-
-    do {
-
+    for (let currentDay = 1; currentDay <= daysInMonth; currentDay++) {
       columnObj = new function () {
-        this.columnDef = innerIndex.toString();
-        this.header = innerIndex.toString();
+        this.columnDef = currentDay.toString();
+        this.header = currentDay.toString();
         this.cell = [];
-      }
+      };
 
-      columns.push(columnObj)
-
+      columns.push(new ColumnDefinition(
+        currentDay.toString(),
+        currentDay.toString(),
+        []
+      ));
     }
-    while (innerIndex++ < tableColumns);
 
     return columns;
 
   }
 
-  generateData(tableColumns: number, tableRows: number)                                         // Create table data, this is just a 2d array of sequential numbers
-  {
-    var innerIndex: number = 1;
-    var outerIndex: number = 0;
-    var value: number;
-    var tableRow: string[] = [];
-    var tableData: any[] = [];
+  generateData(daysInMonth: number, schedule: Schedule) {
+    let tableRow: string[] = [];
+    const tableData: any[] = [];
 
-    do {
-      tableRow.push('Dawid')
-      innerIndex = 1;
-      do {
-        value = outerIndex * 10 + innerIndex
-        tableRow.push(value.toString())
+    const numberOfPeople = 10;
+
+    const personName = 'Dawid';
+
+    for (let currentPersonIndex = 0; currentPersonIndex < numberOfPeople; currentPersonIndex++) {
+      tableRow.push(personName);
+      for (let currentDay = 1; currentDay <= daysInMonth; currentDay++) {
+        tableRow.push(currentDay.toString() + ' ' + currentPersonIndex);
       }
-      while (innerIndex++ < tableColumns);
 
       tableData.push(tableRow);
       tableRow = [];
-
     }
-    while (outerIndex++ < tableRows - 1);
 
     return tableData;
+  }
 
+  getSelectedDateString(): string {
+    return this.monthNames[this.selectedDate.getMonth()] + ' ' + this.selectedDate.getFullYear();
+  }
+
+  goToNextMonth(): void {
+    this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
+    this.updateTableData();
+  }
+
+  goToPreviousMonth(): void {
+    this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
+    this.updateTableData();
   }
 }
 
-export class tableDataSource extends DataSource<any>
-{
+export class ColumnDefinition {
+  columnDef: string;
+  header: string;
+  cell: any;
 
-  constructor(private _data: BehaviorSubject<any[]>) {
+  constructor(columnDef: string, header: string, cell: any) {
+    this.columnDef = columnDef;
+    this.header = header;
+    this.cell = cell;
+  }
+}
+
+export class TableDataSource extends DataSource<any> {
+
+  constructor(private data: BehaviorSubject<any[]>) {
     super();
   }
 
   connect() {
-    return this._data.asObservable()
+    return this.data.asObservable();
   }
 
   disconnect() { }
-
 }
