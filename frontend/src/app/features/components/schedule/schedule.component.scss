@@ -8,6 +8,18 @@
   overflow: auto;
 }
 
+.cellButton {
+  min-width: 0px;
+  flex: 1;
+
+  &.DAY {
+    background-color: green;
+  }
+  &.NIGHT {
+    background-color: blue;
+  }
+}
+
 .monthPicker {
   display: flex;
 }

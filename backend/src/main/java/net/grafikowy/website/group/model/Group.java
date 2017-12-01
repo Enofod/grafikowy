@@ -95,9 +95,6 @@ public class Group {
         return "Group{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
-                ", moderators=" + moderators +
-                ", shifts=" + shifts +
                 '}';
     }
 

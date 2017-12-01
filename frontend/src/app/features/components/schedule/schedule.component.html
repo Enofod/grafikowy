@@ -27,7 +27,7 @@
     <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
       <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
       <mat-cell *cdkCellDef="let row">
-          <button mat-raised-button [ngClass]="row[colIndex]">{{ getDisplayValueForCell(row[colIndex]) }}</button>
+          <button mat-button class="cellButton" [ngClass]="row[colIndex]">{{ getDisplayValueForCell(row[colIndex]) }}</button>
       </mat-cell>
     </ng-container>
 

@@ -30,7 +30,7 @@ def runFrontend() {
     stage('Run frontend') {
         dir('frontend') {
             sh 'sudo npm install'
-            sh 'sudo ng build'
+            sh 'sudo ng build -e server'
             sh 'sudo cp -r ./dist/* /var/www/html/'
         }
     }

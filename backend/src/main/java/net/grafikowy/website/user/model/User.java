@@ -161,9 +161,6 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", authorities=" + authorities +
-                ", usingGroups=" + usingGroups +
-                ", moderatingGroups=" + moderatingGroups +
-                ", shifts=" + shifts +
                 '}';
     }
 

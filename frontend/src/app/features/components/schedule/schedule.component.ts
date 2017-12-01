@@ -14,10 +14,12 @@ import { CdkTableModule } from '@angular/cdk/table';
 import 'rxjs/add/observable/of';
 import { ShiftInDay } from '../../model/schedule/shift-in-day';
 
+declare var require: any;
+
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
-  styleUrls: ['./schedule.component.css']
+  styles: [require('./schedule.component.scss')]
 })
 export class ScheduleComponent implements OnInit, OnDestroy {
 

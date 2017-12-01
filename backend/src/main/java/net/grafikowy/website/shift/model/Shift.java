@@ -34,6 +34,10 @@ public class Shift {
     public Shift() {
     }
 
+    public void addUser(User user) {
+        users.add(user);
+    }
+
     public LocalDate getShiftDate() {
         return shiftDate;
     }
@@ -83,5 +87,27 @@ public class Shift {
                 ", users=" + users +
                 ", group=" + group +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Shift shift = (Shift) o;
+
+        if (id != null ? !id.equals(shift.id) : shift.id != null) return false;
+        if (shiftDate != null ? !shiftDate.equals(shift.shiftDate) : shift.shiftDate != null) return false;
+        if (shiftType != shift.shiftType) return false;
+        return group != null ? group.equals(shift.group) : shift.group == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (shiftDate != null ? shiftDate.hashCode() : 0);
+        result = 31 * result + (shiftType != null ? shiftType.hashCode() : 0);
+        result = 31 * result + (group != null ? group.hashCode() : 0);
+        return result;
     }
 }
