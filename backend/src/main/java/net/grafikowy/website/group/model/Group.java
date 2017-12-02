@@ -28,10 +28,15 @@ public class Group {
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private Set<Shift> shifts;
 
-    public Group() {}
+    public Group() {
+    }
 
     public Group(String name) {
         this.name = name;
+    }
+
+    public void addShift(Shift shift) {
+        shifts.add(shift);
     }
 
     public boolean addUser(User user) {

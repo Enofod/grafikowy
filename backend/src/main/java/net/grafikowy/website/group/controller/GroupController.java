@@ -1,6 +1,7 @@
 package net.grafikowy.website.group.controller;
 
 import net.grafikowy.website.group.controller.dto.GroupDetailsDTO;
+import net.grafikowy.website.group.exception.GroupNotFoundException;
 import net.grafikowy.website.group.service.GroupService;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,13 @@ public class GroupController {
     }
 
     @GetMapping("/{id}")
-    public GroupDetailsDTO getById(Long id) {
-        return new GroupDetailsDTO(groupService.getOne(id));
+    public GroupDetailsDTO getById(Long id) throws GroupNotFoundException {
+        return new GroupDetailsDTO(
+                groupService.findOne(id)
+                        .orElseThrow(
+                                () -> new GroupNotFoundException("Group with id: " + id + " not exist")
+                        )
+        );
     }
 
     @PostMapping("/{groupName}")

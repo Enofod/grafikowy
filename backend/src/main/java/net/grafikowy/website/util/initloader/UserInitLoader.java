@@ -16,5 +16,6 @@ public class UserInitLoader {
     public void load() {
         userService.saveUser("a", "a", "Mistrz", "Dawid", "12331414141241", AuthorityConstant.ADMIN);
         userService.saveUser("b", "b", "Grzyb", "Marian", "1231241", AuthorityConstant.USER);
+        userService.saveUser("c", "c", "Jurek", "Ogórek", "12312414", AuthorityConstant.USER);
     }
 }

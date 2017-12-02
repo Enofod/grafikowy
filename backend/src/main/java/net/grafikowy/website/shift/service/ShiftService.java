@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class ShiftService {
@@ -35,14 +34,12 @@ public class ShiftService {
 
     @Transactional
     public void addShift(long userId, LocalDate shiftDate, ShiftType shiftType, long groupId) {
-        Group group = groupService.getOne(groupId);
         Optional<User> user = userService.findOne(userId);
         if (user.isPresent()) {
-            Optional<Shift> shift = shiftRepository.findByShiftDateAndShiftTypeAndGroup(shiftDate, shiftType, group);
-            if (shift.isPresent()) {
-                shift.get().addUser(user.get());
-            } else {
-                user.get().addShift(new Shift(shiftDate, shiftType, group));
+            Optional<Group> group = groupService.findOne(groupId);
+            if (group.isPresent()) {
+                Shift shift = new Shift(shiftDate, shiftType, group.get());
+                user.get().addShift(shift);
             }
         }
     }

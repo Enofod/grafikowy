@@ -24,6 +24,8 @@ public class GroupInitLoader {
         groupService.addModeratorToGroup(group2.getId(), "a");
         groupService.addUserToGroup(groupOneId, "a");
         groupService.addUserToGroup(groupOneId, "b");
+        groupService.addUserToGroup(groupOneId, "c");
+        groupService.addUserToGroup(groupOneId, "c");
 
         groupService.addUserToGroup(group2.getId(), "b");
     }

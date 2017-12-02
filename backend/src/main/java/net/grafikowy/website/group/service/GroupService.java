@@ -27,8 +27,8 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
-    public Group getOne(Long id) {
-        return groupRepository.findOne(id);
+    public Optional<Group> findOne(Long id) {
+        return Optional.ofNullable(groupRepository.findOne(id));
     }
 
     public Optional<Group> findByName(String name) {

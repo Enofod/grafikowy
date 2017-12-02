@@ -49,4 +49,8 @@ public class UserService {
     public Optional<User> findOne(Long id) {
         return Optional.ofNullable(userRepository.findOne(id));
     }
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
 }

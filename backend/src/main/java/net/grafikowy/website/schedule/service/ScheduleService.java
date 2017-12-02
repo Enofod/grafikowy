@@ -1,6 +1,7 @@
 package net.grafikowy.website.schedule.service;
 
 import net.grafikowy.website.group.exception.GroupNotFoundException;
+import net.grafikowy.website.group.model.Group;
 import net.grafikowy.website.group.service.GroupService;
 import net.grafikowy.website.schedule.model.Schedule;
 import net.grafikowy.website.shift.controller.dto.ShiftDayTypeDTO;
@@ -30,7 +31,8 @@ public class ScheduleService {
 
     public Schedule getSchedule(String groupName, int year, int month) throws GroupNotFoundException {
         // TODO: Handle exception when group not existing
-        Set<User> usersInGroup = groupService.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name " + groupName + " not found.")).getUsers();
+        Group group = groupService.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name " + groupName + " not found."));
+        Set<User> usersInGroup = group.getUsers();
         LocalDate startDate = LocalDate.of(year, month, 1);
         LocalDate endDate = LocalDate.of(year, month, startDate.lengthOfMonth());
 
@@ -39,6 +41,7 @@ public class ScheduleService {
         usersInGroup.forEach(user -> {
                     tempMap.put(user, getEmptyShiftListForMonth(year, month));
                     user.getShifts().stream()
+                            .filter(shift -> shift.getGroup().equals(group))
                             .filter(shift -> (shift.getShiftDate().isEqual(startDate) || shift.getShiftDate().isEqual(endDate)) || (shift.getShiftDate().isAfter(startDate) && shift.getShiftDate().isBefore(endDate)))
                             .forEach(shift -> {
                                 tempMap.get(user).put(shift.getShiftDate().getDayOfMonth(), shift.getShiftType());
