@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import 'rxjs/add/observable/of';
 import { ShiftInDay } from '../../model/schedule/shift-in-day';
+import { ThemeService } from '../../../core/services/theme.service';
 
 declare var require: any;
 
@@ -40,14 +41,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   private schedule: Schedule;
 
-  constructor(private route: ActivatedRoute, private scheduleService: ScheduleService) {
+  constructor(private route: ActivatedRoute, private scheduleService: ScheduleService, private themeService: ThemeService) {
     this.dataSource = new TableDataSource(this.dataSubject);
   }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.groupName = params.groupName;
-      this.updateTableData();
+      this.loadSchedule();
     });
   }
 
@@ -55,7 +56,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  updateTableData() {
+  loadSchedule() {
     this.scheduleService.getScheduleForGroupAtYearAndMonth(this.groupName, this.selectedDate.getFullYear().toString(),
      (this.selectedDate.getMonth() + 1).toString()).subscribe(schedule => {
       const numberOfDays = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0).getDate();
@@ -113,9 +114,6 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     let tableRow: string[] = [];
     const tableData: any[] = [];
 
-    console.log(schedule);
-    const numberOfPeople = 10;
-
     for (const userShift of schedule.userShifts) {
       tableRow.push(userShift.user.lastName + ' ' + userShift.user.firstName);
       for (const shift of userShift.shiftInDay) {
@@ -135,12 +133,23 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   goToNextMonth(): void {
     this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
-    this.updateTableData();
+    this.loadSchedule();
   }
 
   goToPreviousMonth(): void {
     this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
-    this.updateTableData();
+    this.loadSchedule();
+  }
+
+  changeShiftType(row: string, column: string) {
+    const currentShiftType = this.tableData[row][column];
+    if (currentShiftType === 'DAY') {
+      this.tableData[row][column] = 'NIGHT';
+    } else if (currentShiftType === 'NIGHT') {
+      this.tableData[row][column] = 'NONE';
+    } else {
+      this.tableData[row][column] = 'DAY';
+    }
   }
 
   getDisplayValueForCell(value: String) {
@@ -148,11 +157,15 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       return 'D';
     } else if (value === 'NIGHT') {
       return 'N';
-    } else if (value === 'NONE'){
+    } else if (value === 'NONE') {
       return '-';
     } else {
       return value;
     }
+  }
+
+  isDarkTheme() {
+    return this.themeService.isDarkTheme();
   }
 }
 

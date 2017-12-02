@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="schedulerHeader" color="primary" [class.dark]="isDarkTheme()">
   {{ groupName }}
 </mat-toolbar>
 
@@ -16,9 +16,7 @@
   </mat-card>
 </div>
 
-<br>
-
-<div class="table-container mat-elevation-z8">
+<div class="table-container mat-elevation-z8" class="schedule">
   <mat-table #table [dataSource]="dataSource">
 
     <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
@@ -26,10 +24,18 @@
 
     <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
       <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
-      <mat-cell *cdkCellDef="let row">
-          <button mat-button class="cellButton" [ngClass]="row[colIndex]">{{ getDisplayValueForCell(row[colIndex]) }}</button>
+      <mat-cell *cdkCellDef="let row; let rowIndex = index">
+        <button [class.dark]="isDarkTheme()" mat-button class="cellButton" [ngClass]="row[colIndex]" (click)="changeShiftType(rowIndex, colIndex)">{{ getDisplayValueForCell(row[colIndex]) }}</button>
       </mat-cell>
     </ng-container>
-
   </mat-table>
+
+  <div class="buttonsHolder">
+    <button mat-mini-fab color="warn">
+      <mat-icon aria-label="Resetuj grafik" (click)="loadSchedule()">restore</mat-icon>
+    </button>
+    <button mat-fab color="primary" class="sendButton">
+      <mat-icon aria-label="Wyślij grafik">send</mat-icon>
+    </button>
+  </div>
 </div>

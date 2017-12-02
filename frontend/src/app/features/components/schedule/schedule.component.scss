@@ -1,11 +1,19 @@
+@import '~@angular/material/theming';
+@import '../../../../grafikowy-theme.scss';
+
+$primary: map-get($light-theme, primary);
+$accent: map-get($light-theme, accent);
+
 .schedule {
-  display: flex;
-  width: 100%;
-  overflow-x: scroll;
+  margin-top: 20px;
 }
 
 .mat-table {
   overflow: auto;
+}
+
+.schedulerHeader {
+  background-color: mat-color($primary);
 }
 
 .cellButton {
@@ -13,10 +21,10 @@
   flex: 1;
 
   &.DAY {
-    background-color: green;
+    background-color: mat-color($primary, 200);
   }
   &.NIGHT {
-    background-color: blue;
+    background-color: mat-color($accent, 200);
   }
 }
 
@@ -27,6 +35,34 @@
 .monthDisplay {
   flex: 1;
   text-align: center;
+}
+
+.buttonsHolder {
+  margin: 10px;
+  display: flex;
+  float: right;
+}
+
+.sendButton {
+  margin-left: 10px;
+}
+
+.dark {
+  $accent: map-get($dark-theme, accent);
+  $primary: map-get($dark-theme, primary);
+
+  &.cellButton { 
+    &.DAY {
+      background-color: mat-color($primary, 200);
+    }
+    &.NIGHT {
+      background-color: mat-color($accent, 200);
+    }
+  }
+
+  &.schedulerHeader {
+    background-color: mat-color($primary);
+  }
 }
 
 
