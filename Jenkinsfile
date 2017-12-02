@@ -31,6 +31,7 @@ def runFrontend() {
         dir('frontend') {
             sh 'sudo npm install'
             sh 'sudo ng build -e server'
+	    sh 'sudo rm -rf /var/www/html/'
             sh 'sudo cp -r ./dist/* /var/www/html/'
         }
     }
