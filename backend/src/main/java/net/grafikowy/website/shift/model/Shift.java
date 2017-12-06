@@ -21,7 +21,7 @@ public class Shift {
     @JoinTable(name = "user_shifts", joinColumns = @JoinColumn(name = "shift_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
 
