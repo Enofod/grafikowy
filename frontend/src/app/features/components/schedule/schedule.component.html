@@ -19,12 +19,12 @@
 <div class="table-container mat-elevation-z8" class="schedule">
   <mat-table #table [dataSource]="dataSource">
 
-    <mat-header-row *matHeaderRowDef="columnHeaders"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columnHeaders;"></mat-row>
+    <mat-header-row class="tableHeaderRow" *matHeaderRowDef="columnHeaders"></mat-header-row>
+    <mat-row class="tableRow" *matRowDef="let row; columns: columnHeaders;"></mat-row>
 
     <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
-      <mat-header-cell *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
-      <mat-cell *cdkCellDef="let row; let rowIndex = index">
+      <mat-header-cell class="tableHeader" *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
+      <mat-cell class="tableCell" *cdkCellDef="let row; let rowIndex = index">
         <button [class.dark]="isDarkTheme()" mat-button class="cellButton" [ngClass]="row[colIndex]" (click)="changeShiftType(rowIndex, colIndex)">{{ getDisplayValueForCell(row[colIndex]) }}</button>
       </mat-cell>
     </ng-container>
