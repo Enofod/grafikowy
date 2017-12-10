@@ -3,7 +3,7 @@ package net.grafikowy.website.schedule.service;
 import net.grafikowy.website.group.exception.GroupNotFoundException;
 import net.grafikowy.website.group.model.Group;
 import net.grafikowy.website.group.service.GroupService;
-import net.grafikowy.website.schedule.model.Schedule;
+import net.grafikowy.website.schedule.model.ScheduleDTO;
 import net.grafikowy.website.shift.controller.dto.ShiftDayTypeDTO;
 import net.grafikowy.website.shift.controller.dto.UserShiftsDTO;
 import net.grafikowy.website.shift.model.Shift;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -35,7 +34,7 @@ public class ScheduleService {
         this.userService = userService;
     }
 
-    public Schedule getSchedule(String groupName, int year, int month) throws GroupNotFoundException {
+    public ScheduleDTO getSchedule(String groupName, int year, int month) throws GroupNotFoundException {
         Group group = groupService.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name " + groupName + " not found."));
         Set<User> usersInGroup = group.getUsers();
         LocalDate startDate = LocalDate.of(year, month, 1);
@@ -62,7 +61,7 @@ public class ScheduleService {
             userShifts.add(new UserShiftsDTO(new SimpleUserDetailsDTO(user), shiftList));
         });
 
-        return new Schedule(year, month, groupName, userShifts);
+        return new ScheduleDTO(year, month, groupName, userShifts);
     }
 
     private Map<Integer, ShiftType> getEmptyShiftListForMonth(int year, int month) {
@@ -71,22 +70,22 @@ public class ScheduleService {
                 .collect(Collectors.toMap(Function.identity(), day -> ShiftType.NONE));
     }
 
-    public void saveSchedule(Schedule schedule) throws GroupNotFoundException {
-        schedule.getUserShifts().forEach(userShiftsDTO -> {
+    public void saveSchedule(ScheduleDTO scheduleDTO) throws GroupNotFoundException {
+        scheduleDTO.getUserShifts().forEach(userShiftsDTO -> {
             userShiftsDTO.getShiftInDay().stream()
                     .filter(shiftDayTypeDTO -> !shiftDayTypeDTO.getShiftType().equals(ShiftType.NONE))
                     .forEach(shiftDayTypeDTO ->
                             shiftService.addShift(
                                     userShiftsDTO.getUser().getId(),
-                                    LocalDate.of(schedule.getYear(), schedule.getMonth(), shiftDayTypeDTO.getDay()),
+                                    LocalDate.of(scheduleDTO.getYear(), scheduleDTO.getMonth(), shiftDayTypeDTO.getDay()),
                                     shiftDayTypeDTO.getShiftType(),
-                                    schedule.getGroupName()
+                                    scheduleDTO.getGroupName()
                             ));
         });
     }
 
     @Transactional
-    public void removeSchedulesForGroupInMonth(String groupName, int year, int month) throws GroupNotFoundException {
+    public void removeSchedulesForGroupInYearAndMonth(String groupName, int year, int month) throws GroupNotFoundException {
         Group group = groupService.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name " + groupName + " not found."));
         List<Shift> shiftsToRemove = group.getShifts().stream().filter(shift ->
                 shift.getShiftDate().isAfter(LocalDate.of(year, month, 1).minusDays(1))

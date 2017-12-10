@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.loggedUser = null;
 
-    this.router.navigate(['/']); //for the case 'the user logout I want him to be redirected to home.
+    this.router.navigate(['/']);
   }
 
   loadLoggedInUser(): void {

@@ -11,11 +11,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { ScheduleComponent } from './features/components/schedule/schedule.component';
 import { ScheduleService } from './features/services/schedule.service';
+import { CalendarComponent } from './features/components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ScheduleComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
