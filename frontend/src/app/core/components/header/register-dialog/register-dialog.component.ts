@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { MatDialogRef } from '@angular/material';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-register-dialog',
@@ -21,13 +22,14 @@ export class RegisterDialogComponent {
         Validators.email,
     ]);
 
-    constructor(private authService: AuthService, public dialogRef: MatDialogRef<RegisterDialogComponent>) { }
+    constructor(private authService: AuthService, public dialogRef: MatDialogRef<RegisterDialogComponent>, private router: Router) { }
 
     register(): void {
         this.authService.signUp(this.email, this.password, this.firstName, this.lastName, this.phone).subscribe(singUpResponse => {
             this.authService.authenticate(this.email, this.password).subscribe(validAuthentication => {
                 if (validAuthentication) {
                     this.dialogRef.close('Zalogowano!');
+                    this.router.navigate(['/']);
                 }
             });
         },
