@@ -15,6 +15,7 @@ import 'rxjs/add/observable/of';
 import { ShiftInDay } from '../../model/schedule/shift-in-day';
 import { ThemeService } from '../../../core/services/theme.service';
 import { UserShifts } from '../../model/schedule/user-shifts';
+import { MatSnackBar } from '@angular/material';
 
 declare var require: any;
 
@@ -42,7 +43,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   private schedule: Schedule;
 
-  constructor(private route: ActivatedRoute, private scheduleService: ScheduleService, private themeService: ThemeService) {
+  constructor(private route: ActivatedRoute, private scheduleService: ScheduleService, private themeService: ThemeService,
+     private snackBar: MatSnackBar) {
     this.dataSource = new TableDataSource(this.dataSubject);
   }
 
@@ -72,7 +74,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   saveSchedule() {
     this.scheduleService.postSchedule(this.schedule).subscribe(response => {
-      console.log('Wyslano');
+      this.snackBar.open('Zapisano zmiany!', 'OK', { duration: 2500 });
     });
   }
 
