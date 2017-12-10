@@ -44,7 +44,7 @@ import java.util.Set;
         )
         private Set<Group> moderatingGroups = new HashSet<>();
 
-        @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+        @ManyToMany(cascade = CascadeType.ALL)
         @JoinTable(
                 name = "user_shifts",
                 joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},

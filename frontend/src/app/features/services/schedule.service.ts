@@ -14,4 +14,9 @@ export class ScheduleService {
     return this.apiClientService.get<Schedule>(uri);
   }
 
+  postSchedule(schedule: Schedule): Observable<Schedule> {
+    const uri = 'schedule/group';
+    return this.apiClientService.post<Schedule>(uri, schedule);
+  }
+
 }

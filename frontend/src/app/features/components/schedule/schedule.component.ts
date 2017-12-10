@@ -14,6 +14,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import 'rxjs/add/observable/of';
 import { ShiftInDay } from '../../model/schedule/shift-in-day';
 import { ThemeService } from '../../../core/services/theme.service';
+import { UserShifts } from '../../model/schedule/user-shifts';
 
 declare var require: any;
 
@@ -37,7 +38,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   columnHeaders: string[] = [];
   columns: ColumnDefinition[] = [];
-  tableData: string[] = [];
+  tableData: any[] = [];
 
   private schedule: Schedule;
 
@@ -58,14 +59,20 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   loadSchedule() {
     this.scheduleService.getScheduleForGroupAtYearAndMonth(this.groupName, this.selectedDate.getFullYear().toString(),
-     (this.selectedDate.getMonth() + 1).toString()).subscribe(schedule => {
-      const numberOfDays = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0).getDate();
-      this.columnHeaders = this.generateHeaders(numberOfDays);
-      this.columns = this.generateColumns(numberOfDays);
-      this.tableData = this.generateData(numberOfDays, schedule);
+      (this.selectedDate.getMonth() + 1).toString()).subscribe(schedule => {
+        const numberOfDays = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0).getDate();
+        this.columnHeaders = this.generateHeaders(numberOfDays);
+        this.columns = this.generateColumns(numberOfDays);
+        this.tableData = this.fillData(numberOfDays, schedule);
 
-      this.dataSubject.next(this.tableData);
-      this.schedule = schedule;
+        this.dataSubject.next(this.tableData);
+        this.schedule = schedule;
+      });
+  }
+
+  saveSchedule() {
+    this.scheduleService.postSchedule(this.schedule).subscribe(response => {
+      console.log('Wyslano');
     });
   }
 
@@ -110,14 +117,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   }
 
-  generateData(daysInMonth: number, schedule: Schedule) {
-    let tableRow: string[] = [];
+  fillData(daysInMonth: number, schedule: Schedule) {
+    let tableRow: any[] = [];
     const tableData: any[] = [];
 
     for (const userShift of schedule.userShifts) {
-      tableRow.push(userShift.user.lastName + ' ' + userShift.user.firstName);
+      tableRow.push(userShift.user);
       for (const shift of userShift.shiftInDay) {
-        tableRow.push(shift.shiftType.toString());
+        tableRow.push(shift);
       }
 
       tableData.push(tableRow);
@@ -144,32 +151,38 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   handleCellClick(row: string, column: string) {
     const cellValue = this.tableData[row][column];
 
-    if (cellValue === 'DAY' || cellValue === 'NIGHT' || cellValue === 'NONE') {
+    if (cellValue.shiftType !== null) {
       this.changeShiftType(row, column);
     }
   }
 
   changeShiftType(row: string, column: string) {
-    const currentShiftType = this.tableData[row][column];
+    const currentShiftType = this.tableData[row][column].shiftType;
     if (currentShiftType === 'DAY') {
-      this.tableData[row][column] = 'NIGHT';
+      this.tableData[row][column].shiftType = 'NIGHT';
     } else if (currentShiftType === 'NIGHT') {
-      this.tableData[row][column] = 'NONE';
+      this.tableData[row][column].shiftType = 'NONE';
     } else {
-      this.tableData[row][column] = 'DAY';
+      this.tableData[row][column].shiftType = 'DAY';
     }
   }
 
-  getDisplayValueForCell(value: String) {
-    if (value === 'DAY') {
-      return 'D';
-    } else if (value === 'NIGHT') {
-      return 'N';
-    } else if (value === 'NONE') {
-      return '-';
-    } else {
-      return value;
+  getDisplayValueForCell(value: any) {
+    if (value.firstName && value.lastName) {
+      return value.firstName + ' ' + value.lastName;
     }
+
+    const shiftType = value.shiftType;
+    if (shiftType === 'DAY') {
+      return 'D';
+    } else if (shiftType === 'NIGHT') {
+      return 'N';
+    } else if (shiftType === 'NONE') {
+      return '-';
+    }
+
+    return value;
+
   }
 
   isDarkTheme() {

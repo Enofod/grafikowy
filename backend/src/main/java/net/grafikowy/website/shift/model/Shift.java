@@ -14,14 +14,15 @@ public class Shift {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private LocalDate shiftDate;
     private ShiftType shiftType;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "user_shifts", joinColumns = @JoinColumn(name = "shift_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> users = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
     private Group group;
 

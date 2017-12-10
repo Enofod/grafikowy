@@ -2,9 +2,11 @@ package net.grafikowy.website.group.model;
 
 import net.grafikowy.website.shift.model.Shift;
 import net.grafikowy.website.user.model.User;
+import org.springframework.data.jpa.repository.Modifying;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,6 +39,10 @@ public class Group {
 
     public void addShift(Shift shift) {
         shifts.add(shift);
+    }
+
+    public void removeShifts(List<Shift> shifts) {
+        shifts.remove(shifts);
     }
 
     public boolean addUser(User user) {

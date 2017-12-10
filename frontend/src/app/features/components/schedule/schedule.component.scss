@@ -15,16 +15,13 @@ $accent: map-get($light-theme, accent);
 }
 
 .cellButton {
-  min-width: 0px;
+  min-width: 40px;
   flex: 1;
   &.DAY {
     background-color: mat-color($primary, 200);
   }
   &.NIGHT {
     background-color: mat-color($accent, 200);
-  }
-  &.userName {
-
   }
 }
 
@@ -41,6 +38,12 @@ $accent: map-get($light-theme, accent);
   margin: 10px;
   display: flex;
   float: right;
+}
+
+.mat-header-cell {
+  &.shift {
+    text-align: center;
+  }
 }
 
 .tableHeader {

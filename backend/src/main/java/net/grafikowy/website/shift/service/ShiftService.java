@@ -7,6 +7,7 @@ import net.grafikowy.website.shift.model.ShiftType;
 import net.grafikowy.website.shift.repository.ShiftRepository;
 import net.grafikowy.website.user.model.User;
 import net.grafikowy.website.user.service.UserService;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,17 +29,17 @@ public class ShiftService {
     }
 
     public List<Shift> findAll() {
-
         return shiftRepository.findAll();
     }
 
+    // TODO: Fix - it not always saves data.
     @Transactional
-    public void addShift(long userId, LocalDate shiftDate, ShiftType shiftType, long groupId) {
+    public void addShift(long userId, LocalDate shiftDate, ShiftType shiftType, String groupName) {
         Optional<User> user = userService.findOne(userId);
         if (user.isPresent()) {
-            Optional<Group> group = groupService.findOne(groupId);
+            Optional<Group> group = groupService.findByName(groupName);
             if (group.isPresent()) {
-                Shift shift = new Shift(shiftDate, shiftType, group.get());
+                Shift shift = shiftRepository.findByShiftDateAndShiftTypeAndGroup(shiftDate, shiftType, group.get()).orElse(new Shift(shiftDate, shiftType, group.get()));
                 user.get().addShift(shift);
             }
         }

@@ -25,7 +25,7 @@
     <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
       <mat-header-cell class="tableHeader" [ngClass]="colIndex === 0?'userName':'shift'" *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
       <mat-cell class="tableCell" [ngClass]="colIndex === 0?'userName':'shift'" *cdkCellDef="let row; let rowIndex = index">
-        <button [class.dark]="isDarkTheme()" mat-button class="cellButton" [ngClass]="colIndex === 0?'userName':row[colIndex]" (click)="handleCellClick(rowIndex, colIndex)">{{ getDisplayValueForCell(row[colIndex]) }}</button>
+        <button [class.dark]="isDarkTheme()" mat-button class="cellButton" [ngClass]="colIndex === 0?'userName':row[colIndex].shiftType" (click)="handleCellClick(rowIndex, colIndex)">{{ getDisplayValueForCell(row[colIndex]) }}</button>
       </mat-cell>
     </ng-container>
   </mat-table>
@@ -34,7 +34,7 @@
     <button mat-mini-fab color="warn">
       <mat-icon aria-label="Resetuj grafik" (click)="loadSchedule()">restore</mat-icon>
     </button>
-    <button mat-fab color="primary" class="sendButton">
+    <button mat-fab color="primary" class="sendButton" (click)="saveSchedule()">
       <mat-icon aria-label="Wyślij grafik">send</mat-icon>
     </button>
   </div>
