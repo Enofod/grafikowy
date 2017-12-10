@@ -30,16 +30,16 @@ public class ShiftController {
         return all;
     }
 
-    @GetMapping("")
-    public CalendarDTO getShiftForUserAndGroupNameYearAndMonth(@RequestParam(name = "userId") long userId, @RequestParam(name = "groupName") String groupName, @RequestParam(name = "year") int year, @RequestParam(name = "month") int month) throws GroupNotFoundException, UserNotFoundException {
-        List<ShiftDayTypeDTO> shiftDayTypeDTOS = shiftService.findForUserInYearAndMonth(userId, groupName, year, month).stream()
+    @GetMapping
+    public CalendarDTO getShiftForUserAndGroupNameYearAndMonth(@RequestParam(name = "userEmail") String userEmail, @RequestParam(name = "groupName") String groupName, @RequestParam(name = "year") int year, @RequestParam(name = "month") int month) throws GroupNotFoundException, UserNotFoundException {
+        List<ShiftDayTypeDTO> shiftDayTypeDTOS = shiftService.findForUserInYearAndMonth(userEmail, groupName, year, month).stream()
                 .map(shift -> new ShiftDayTypeDTO(shift.getShiftDate().getDayOfMonth(), shift.getShiftType()))
                 .collect(Collectors.toList());
 
         return new CalendarDTO(
                 year,
                 month,
-                userId,
+                userEmail,
                 groupName,
                 shiftDayTypeDTOS
         );

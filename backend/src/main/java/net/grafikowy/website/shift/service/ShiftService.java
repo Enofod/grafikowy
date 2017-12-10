@@ -47,11 +47,11 @@ public class ShiftService {
         }
     }
 
-    public Set<Shift> findForUserInYearAndMonth(long userId, String groupName, int year, int month) throws GroupNotFoundException, UserNotFoundException {
+    public Set<Shift> findForUserInYearAndMonth(String userEmail, String groupName, int year, int month) throws GroupNotFoundException, UserNotFoundException {
         LocalDate startDate = LocalDate.of(year, month, 1);
         LocalDate endDate = LocalDate.of(year, month, startDate.lengthOfMonth());
 
-        User user = userService.findOne(userId).orElseThrow(() -> new UserNotFoundException("User with id: " + userId + " not fond"));
+        User user = userService.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with id: " + userEmail + " not fond"));
         Group group = groupService.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name " + groupName + " not found."));
 
         return shiftRepository.findByUsersContainingAndGroupAndShiftDateBetween(user, group, startDate, endDate);

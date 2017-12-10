@@ -1,0 +1,18 @@
+@import '~@angular/material/theming';
+@import '../../../../grafikowy-theme.scss';
+$primary: map-get($light-theme, primary);
+$accent: map-get($light-theme, accent);
+
+.calendarHeader {
+    background-color: mat-color($primary);
+  }
+
+  .dark {
+    $accent: map-get($dark-theme, accent);
+    $primary: map-get($dark-theme, primary);
+   
+    &.calendarHeader {
+      background-color: mat-color($primary);
+    }
+  }
+  

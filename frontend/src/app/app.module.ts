@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { ScheduleComponent } from './features/components/schedule/schedule.component';
 import { ScheduleService } from './features/services/schedule.service';
+import { CalendarService } from './features/services/calendar.service';
 import { CalendarComponent } from './features/components/calendar/calendar.component';
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CalendarComponent } from './features/components/calendar/calendar.compo
     AppRoutingModule
   ],
   providers: [
-    ScheduleService
+    ScheduleService,
+    CalendarService
   ],
   bootstrap: [AppComponent]
 })

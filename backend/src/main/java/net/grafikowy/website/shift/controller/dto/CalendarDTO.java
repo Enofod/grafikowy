@@ -5,14 +5,14 @@ import java.util.List;
 public class CalendarDTO {
     private int year;
     private int month;
-    private long userId;
+    private String userEmail;
     private String groupName;
     private List<ShiftDayTypeDTO> shiftInDay;
 
-    public CalendarDTO(int year, int month, long userId, String groupName, List<ShiftDayTypeDTO> shiftInDay) {
+    public CalendarDTO(int year, int month, String userEmail, String groupName, List<ShiftDayTypeDTO> shiftInDay) {
         this.year = year;
         this.month = month;
-        this.userId = userId;
+        this.userEmail = userEmail;
         this.groupName = groupName;
         this.shiftInDay = shiftInDay;
     }
@@ -36,12 +36,12 @@ public class CalendarDTO {
         this.month = month;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getGroupName() {
