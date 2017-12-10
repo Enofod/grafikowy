@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { Error404Component } from './components/error404/error404.component';
 import { LoginDialogComponent } from './components/header/login-dialog/login-dialog.component';
+import { RegisterDialogComponent } from './components/header/register-dialog/register-dialog.component';
 import { UserComponent } from './components/user/user.component';
 
 import { AuthService } from './services/auth.service';
@@ -46,6 +47,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     Error404Component,
     HeaderComponent,
     LoginDialogComponent,
+    RegisterDialogComponent,
     UserComponent,
     SidenavComponent
   ],
@@ -59,7 +61,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     AdminAuthGuard
   ],
   entryComponents: [
-    LoginDialogComponent
+    LoginDialogComponent,
+    RegisterDialogComponent
   ]
 })
 

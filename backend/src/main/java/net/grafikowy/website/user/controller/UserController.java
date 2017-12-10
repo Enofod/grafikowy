@@ -31,6 +31,7 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public void signUp(@RequestBody @Valid SignUpUserDTO signUpUserDTO) {
+        System.out.println(signUpUserDTO);
         User saveUser = userService.saveUser(signUpUserDTO.getEmail(), signUpUserDTO.getPassword(), signUpUserDTO.getFirstName(), signUpUserDTO.getLastName(), signUpUserDTO.getPhone(), AuthorityConstant.USER);
         logger.info("Created user: {}", saveUser);
     }

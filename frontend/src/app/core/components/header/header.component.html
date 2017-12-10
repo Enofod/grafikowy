@@ -18,6 +18,7 @@
             <button mat-menu-item (click)="changeTheme()">Zmien motyw</button>
           </mat-menu>
       <button mat-raised-button color="primary" (click)="openLoginDialog()">Zaloguj</button>
+      <button mat-raised-button (click)="openRegisterDialog()">Zarejestruj</button>
     </div>
 
     <div class="menu" *ngIf="isLoggedIn()">

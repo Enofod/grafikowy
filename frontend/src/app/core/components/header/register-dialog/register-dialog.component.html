@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Rejestracja</h2>
+<mat-dialog-content>
+  <form #loginForm="ngForm" (ngSubmit)="register()" fxLayout="column" class="registerForm">
+    <mat-form-field class="emailForm">
+      <input matInput [(ngModel)]="email" name="email" type="Email" placeholder="Email" [formControl]="emailFormControl" required>
+    </mat-form-field>
+    <mat-form-field class="passwordForm">
+      <input matInput [(ngModel)]="password" name="password" placeholder="Haslo" [type]="passwordHide ? 'password' : 'text'" required>
+      <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="firstNameForm">
+      <input matInput [(ngModel)]="firstName" name="firstName" type="text" placeholder="Imię" required>
+    </mat-form-field>
+    <mat-form-field class="lastNameForm">
+        <input matInput [(ngModel)]="lastName" name="lastName" type="text" placeholder="Nazwisko" required>
+      </mat-form-field>
+      <mat-form-field class="phoneForm">
+        <input matInput [(ngModel)]="phone" name="phone" type="text" placeholder="Number telefonu" required>
+      </mat-form-field>
+    <button mat-raised-button type="submit" color="primary" [disabled]="!loginForm.form.valid">Zaloguj</button>
+  </form>
+</mat-dialog-content>

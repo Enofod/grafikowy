@@ -33,7 +33,7 @@ export class ApiClientService {
       });
   }
 
-  postWithoutAuthorizationForEmptyResponse(uri: string, body: any): Observable<Object> {
+  postWithoutAuthorizationForVoid(uri: string, body: any): Observable<Object> {
     return this.http.post(environment.apiUrl.concat(uri), body,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
