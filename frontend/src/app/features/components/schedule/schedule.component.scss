@@ -1,9 +1,7 @@
 @import '~@angular/material/theming';
 @import '../../../../grafikowy-theme.scss';
-
 $primary: map-get($light-theme, primary);
 $accent: map-get($light-theme, accent);
-
 .schedule {
   margin-top: 20px;
 }
@@ -19,12 +17,14 @@ $accent: map-get($light-theme, accent);
 .cellButton {
   min-width: 0px;
   flex: 1;
-
   &.DAY {
     background-color: mat-color($primary, 200);
   }
   &.NIGHT {
     background-color: mat-color($accent, 200);
+  }
+  &.userName {
+
   }
 }
 
@@ -43,15 +43,20 @@ $accent: map-get($light-theme, accent);
   float: right;
 }
 
-
 .tableHeader {
   flex-shrink: 0;
   flex-basis: 40px;
+  &.userName {
+    flex-basis: 150px;
+  }
 }
 
 .tableCell {
   flex-shrink: 0;
   flex-basis: 40px;
+  &.userName {
+    flex-basis: 150px;
+  }
 }
 
 .sendButton {
@@ -61,8 +66,7 @@ $accent: map-get($light-theme, accent);
 .dark {
   $accent: map-get($dark-theme, accent);
   $primary: map-get($dark-theme, primary);
-
-  &.cellButton { 
+  &.cellButton {
     &.DAY {
       background-color: mat-color($primary, 200);
     }
@@ -70,11 +74,7 @@ $accent: map-get($light-theme, accent);
       background-color: mat-color($accent, 200);
     }
   }
-
   &.schedulerHeader {
     background-color: mat-color($primary);
   }
 }
-
-
-

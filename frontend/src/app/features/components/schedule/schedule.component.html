@@ -23,9 +23,9 @@
     <mat-row class="tableRow" *matRowDef="let row; columns: columnHeaders;"></mat-row>
 
     <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.columnDef">
-      <mat-header-cell class="tableHeader" *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
-      <mat-cell class="tableCell" *cdkCellDef="let row; let rowIndex = index">
-        <button [class.dark]="isDarkTheme()" mat-button class="cellButton" [ngClass]="row[colIndex]" (click)="changeShiftType(rowIndex, colIndex)">{{ getDisplayValueForCell(row[colIndex]) }}</button>
+      <mat-header-cell class="tableHeader" [ngClass]="colIndex === 0?'userName':'shift'" *cdkHeaderCellDef>{{ column.header }}</mat-header-cell>
+      <mat-cell class="tableCell" [ngClass]="colIndex === 0?'userName':'shift'" *cdkCellDef="let row; let rowIndex = index">
+        <button [class.dark]="isDarkTheme()" mat-button class="cellButton" [ngClass]="colIndex === 0?'userName':row[colIndex]" (click)="handleCellClick(rowIndex, colIndex)">{{ getDisplayValueForCell(row[colIndex]) }}</button>
       </mat-cell>
     </ng-container>
   </mat-table>

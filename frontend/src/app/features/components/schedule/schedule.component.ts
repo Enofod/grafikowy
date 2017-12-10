@@ -27,7 +27,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   groupName: string;
   private sub: any;
   private selectedDate: Date = new Date();
-  private userNameCellHeaderName = 'Nazwisko';
+  private userNameCellHeaderName = 'Imię i nazwisko';
   private monthNames: string[] = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec',
     'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 
@@ -139,6 +139,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   goToPreviousMonth(): void {
     this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
     this.loadSchedule();
+  }
+
+  handleCellClick(row: string, column: string) {
+    const cellValue = this.tableData[row][column];
+
+    if (cellValue === 'DAY' || cellValue === 'NIGHT' || cellValue === 'NONE') {
+      this.changeShiftType(row, column);
+    }
   }
 
   changeShiftType(row: string, column: string) {
