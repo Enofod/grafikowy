@@ -16,6 +16,10 @@ $accent: map-get($light-theme, accent);
   text-align: center;
 }
 
+.mat-grid-tile {
+  border: 1px solid #ddd;
+}
+
 .dark {
   $accent: map-get($dark-theme, accent);
   $primary: map-get($dark-theme, primary);

@@ -58,16 +58,16 @@ export class CalendarComponent implements OnInit {
       firstDayOfTheWeek = 7;
     }
     for (let i = 0; i < firstDayOfTheWeek - 1; i++) {
-      tempTiles.push({ text: '', color: 'lightgrey' });
+      tempTiles.push({ text: '', color: 'white' });
     }
 
     for (let i = 1; i < lastDay.getDate() + 1; i++) {
-      tempTiles.push({ text: i, color: 'lightgreen' });
+      tempTiles.push({ text: i, color: 'white' });
     }
 
     if (lastDay.getDay() !== 0) {
       for (let i = 7; i > lastDay.getDay(); i--) {
-        tempTiles.push({ text: '', color: 'lightgrey' });
+        tempTiles.push({ text: '', color: 'white' });
       }
     }
 
