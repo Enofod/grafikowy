@@ -20,12 +20,14 @@ export class CalendarComponent implements OnInit {
   private monthNames: string[] = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec',
     'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 
+  private dayNames: string[] = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
+
   calendar: any[] = [];
 
   tiles: any[] = [];
 
   fixedCols = 7;
-  fixedRowHeight = 100;
+  fixedRowHeight = 90;
 
   constructor(private route: ActivatedRoute, private themeService: ThemeService, private calendarService: CalendarService,
     private authService: AuthService) { }
@@ -53,6 +55,11 @@ export class CalendarComponent implements OnInit {
 
     let firstDayOfTheWeek = firstDay.getDay();
     const tempTiles = new Array();
+
+
+    this.dayNames.forEach(dayName => {
+      tempTiles.push({ text: dayName, color: 'pink' });
+    });
 
     if (firstDay.getDay() - 1 === -1) {
       firstDayOfTheWeek = 7;
