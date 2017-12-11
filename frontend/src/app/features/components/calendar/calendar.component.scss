@@ -16,6 +16,13 @@ $accent: map-get($light-theme, accent);
   text-align: center;
 }
 
+.dayHolder {
+  position:absolute;
+  top:0;
+  right:0;
+  margin: 5px;
+}
+
 .mat-grid-tile {
   border: 1px solid #ddd;
   &.dayName {

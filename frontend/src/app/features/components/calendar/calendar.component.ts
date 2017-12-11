@@ -58,29 +58,30 @@ export class CalendarComponent implements OnInit {
 
 
     this.dayNames.forEach(dayName => {
-      tempTiles.push({ text: dayName, qualifier: 'dayName' });
+      tempTiles.push({ text: dayName, day: '', qualifier: 'dayName' });
     });
 
     if (firstDay.getDay() - 1 === -1) {
       firstDayOfTheWeek = 7;
     }
     for (let i = 0; i < firstDayOfTheWeek - 1; i++) {
-      tempTiles.push({ text: '', qualifier: 'outOfMonth' });
+      tempTiles.push({ text: '', day: '', qualifier: 'outOfMonth' });
     }
 
     for (let i = 1; i < lastDay.getDate() + 1; i++) {
-      tempTiles.push({ text: i, qualifier: 'NONE' });
+      tempTiles.push({ text: '', day: i, qualifier: 'NONE' });
     }
 
     if (lastDay.getDay() !== 0) {
       for (let i = 7; i > lastDay.getDay(); i--) {
-        tempTiles.push({ text: '', qualifier: 'outOfMonth' });
+        tempTiles.push({ text: '', day: '', qualifier: 'outOfMonth' });
       }
     }
 
     console.log(calendar);
     calendar.shiftInDay.forEach(shiftInDay => {
       tempTiles[this.dayNames.length + firstDayOfTheWeek - 1 + shiftInDay.day - 1].qualifier = shiftInDay.shiftType;
+      tempTiles[this.dayNames.length + firstDayOfTheWeek - 1 + shiftInDay.day - 1].text = shiftInDay.shiftType;
      });
 
      this.tiles = tempTiles;

@@ -21,8 +21,10 @@
     <mat-card-content>
       <mat-grid-list [cols]="fixedCols" [rowHeight]="fixedRowHeight">
         <mat-grid-tile *ngFor="let tile of tiles" [ngClass]="tile.qualifier" [class.dark]="isDarkTheme()">
+          <div class="dayHolder">
+            {{tile.day}}
+          </div>
           {{tile.text}}
-
         </mat-grid-tile>
       </mat-grid-list>
     </mat-card-content>
