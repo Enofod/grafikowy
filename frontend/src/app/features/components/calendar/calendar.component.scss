@@ -32,8 +32,21 @@ $accent: map-get($light-theme, accent);
 .dark {
   $accent: map-get($dark-theme, accent);
   $primary: map-get($dark-theme, primary);
+  
   &.calendarHeader {
     background-color: mat-color($primary);
+  }
+
+  &.mat-grid-tile {
+    &.dayName {
+      background: mat-color($primary, 200);
+    }
+    &.DAY {
+      background: mat-color($primary, 100);
+    }
+    &.NIGHT {
+      background: mat-color($accent, 100);
+    }
   }
 }
 
