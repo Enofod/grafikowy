@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../model/user';
 import { ThemeService } from '../../services/theme.service';
+import { SidenavService } from '../../services/sidenav.service';
 
 declare var require: any;
 
@@ -16,7 +17,8 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private themeService: ThemeService) { }
+    private themeService: ThemeService,
+    private sidenavService: SidenavService) { }
 
   ngOnInit() {
     this.loadLoggedInUser();
@@ -26,6 +28,10 @@ export class SidenavComponent implements OnInit {
     this.userService.getCurrentUserDetails().subscribe(user => {
       this.loggedUser = user;
     });
+  }
+
+  closeNavbar() {
+    this.sidenavService.close();
   }
 
   isDarkTheme() {
