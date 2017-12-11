@@ -2,6 +2,29 @@
   {{ groupName }}
 </mat-toolbar>
 
-<div class="calendar">
+<div class="table-container mat-elevation-z8">
+  <mat-card>
+    <div class="monthPicker">
+      <button mat-icon-button (click)="goToPreviousMonth()">
+        <mat-icon>arrow_left</mat-icon>
+      </button>
+      <h4 class="monthDisplay">{{ getSelectedDateString() }}</h4>
+      <button mat-icon-button (click)="goToNextMonth()">
+        <mat-icon>arrow_right</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>
 
+<div class="table-container mat-elevation-z8">
+  <mat-card>
+    <mat-card-content>
+      <mat-grid-list [cols]="fixedCols" [rowHeight]="fixedRowHeight">
+        <mat-grid-tile *ngFor="let tile of tiles" [style.background]="tile.color">
+          {{tile.text}}
+
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
 </div>

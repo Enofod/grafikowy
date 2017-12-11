@@ -26,8 +26,7 @@ public class ShiftController {
 
     @GetMapping("/all")
     public List<Shift> findAll() {
-        List<Shift> all = shiftService.findAll();
-        return all;
+        return shiftService.findAll();
     }
 
     @GetMapping

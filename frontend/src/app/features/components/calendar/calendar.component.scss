@@ -4,15 +4,24 @@ $primary: map-get($light-theme, primary);
 $accent: map-get($light-theme, accent);
 
 .calendarHeader {
+  background-color: mat-color($primary);
+}
+
+.monthPicker {
+  display: flex;
+}
+
+.monthDisplay {
+  flex: 1;
+  text-align: center;
+}
+
+.dark {
+  $accent: map-get($dark-theme, accent);
+  $primary: map-get($dark-theme, primary);
+  &.calendarHeader {
     background-color: mat-color($primary);
   }
+}
 
-  .dark {
-    $accent: map-get($dark-theme, accent);
-    $primary: map-get($dark-theme, primary);
-   
-    &.calendarHeader {
-      background-color: mat-color($primary);
-    }
-  }
-  
+
