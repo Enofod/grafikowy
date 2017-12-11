@@ -18,6 +18,15 @@ $accent: map-get($light-theme, accent);
 
 .mat-grid-tile {
   border: 1px solid #ddd;
+  &.dayName {
+    background: mat-color($primary, 200);
+  }
+  &.DAY {
+    background: mat-color($primary, 100);
+  }
+  &.NIGHT {
+    background: mat-color($accent, 100);
+  }
 }
 
 .dark {
