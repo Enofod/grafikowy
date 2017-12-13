@@ -4,6 +4,7 @@ import { ThemeService } from '../../../core/services/theme.service';
 import { CalendarService } from '../../services/calendar.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Calendar } from '../../model/calendar/calendar';
+import { ShiftType } from '../../model/schedule/shift-type';
 
 declare var require: any;
 
@@ -81,10 +82,23 @@ export class CalendarComponent implements OnInit {
     console.log(calendar);
     calendar.shiftInDay.forEach(shiftInDay => {
       tempTiles[this.dayNames.length + firstDayOfTheWeek - 1 + shiftInDay.day - 1].qualifier = shiftInDay.shiftType;
-      tempTiles[this.dayNames.length + firstDayOfTheWeek - 1 + shiftInDay.day - 1].text = shiftInDay.shiftType;
-     });
+      tempTiles[this.dayNames.length + firstDayOfTheWeek - 1 + shiftInDay.day - 1].text =
+        this.getDisplayShiftTypeText(shiftInDay.shiftType);
+    });
 
-     this.tiles = tempTiles;
+    this.tiles = tempTiles;
+  }
+
+  getDisplayShiftTypeText(shiftType: ShiftType): string {
+    const shiftTypeString = shiftType.toString();
+
+    if (shiftTypeString === 'DAY') {
+      return 'Dzień';
+    } else if (shiftTypeString === 'NIGHT') {
+      return 'Noc';
+    }
+
+    return shiftTypeString;
   }
 
   getSelectedDateString(): string {
