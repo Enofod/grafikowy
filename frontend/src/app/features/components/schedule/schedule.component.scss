@@ -38,6 +38,10 @@ $accent: map-get($light-theme, accent);
   margin: 10px;
   display: flex;
   float: right;
+
+  & button {
+    margin-left: 15px;
+  }
 }
 
 .mat-header-cell {
@@ -60,10 +64,6 @@ $accent: map-get($light-theme, accent);
   &.userName {
     flex-basis: 150px;
   }
-}
-
-.sendButton {
-  margin-left: 10px;
 }
 
 .dark {

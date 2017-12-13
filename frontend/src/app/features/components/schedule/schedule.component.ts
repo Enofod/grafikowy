@@ -16,6 +16,9 @@ import { ShiftInDay } from '../../model/schedule/shift-in-day';
 import { ThemeService } from '../../../core/services/theme.service';
 import { UserShifts } from '../../model/schedule/user-shifts';
 import { MatSnackBar } from '@angular/material';
+import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
+import { RemoveUserDialogComponent } from './remove-user-dialog/remove-user-dialog.component';
+import { MatDialog } from '@angular/material';
 
 declare var require: any;
 
@@ -43,8 +46,12 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   private schedule: Schedule;
 
-  constructor(private route: ActivatedRoute, private scheduleService: ScheduleService, private themeService: ThemeService,
-     private snackBar: MatSnackBar) {
+  constructor(private route: ActivatedRoute,
+      private scheduleService: ScheduleService,
+      private themeService: ThemeService,
+      private snackBar: MatSnackBar,
+      private dialog: MatDialog
+    ) {
     this.dataSource = new TableDataSource(this.dataSubject);
   }
 
@@ -185,6 +192,28 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
     return value;
 
+  }
+
+  opendAddUserDialog(): void {
+    const dialogRef = this.dialog.open(AddUserDialogComponent, {
+      width: '450px',
+      data: { groupName: this.groupName },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadSchedule();
+    });
+  }
+
+  openRemoveUserDialog(): void {
+    const dialogRef = this.dialog.open(RemoveUserDialogComponent, {
+      width: '450px',
+      data: { groupName: this.groupName },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadSchedule();
+    });
   }
 
   isDarkTheme() {

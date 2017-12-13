@@ -1,8 +1,11 @@
 package net.grafikowy.website.group.controller;
 
+import net.grafikowy.website.group.controller.dto.EmailHolder;
 import net.grafikowy.website.group.controller.dto.GroupDetailsDTO;
 import net.grafikowy.website.group.exception.GroupNotFoundException;
 import net.grafikowy.website.group.service.GroupService;
+import net.grafikowy.website.user.controller.exception.UserNotFoundException;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,5 +39,17 @@ public class GroupController {
     @PostMapping("/{groupName}")
     public GroupDetailsDTO createGroup(@PathVariable String groupName) {
         return new GroupDetailsDTO(groupService.createGroup(groupName));
+    }
+
+    // TODO: Change to patch mapping
+    @PostMapping(value = "/{groupName}/addUser")
+    public void addUserToGroup(@PathVariable String groupName, @RequestBody EmailHolder userEmail) throws GroupNotFoundException, UserNotFoundException {
+        groupService.addUserToGroup(groupName, userEmail.getEmail());
+    }
+
+    // TODO: Change to patch mapping
+    @PostMapping(value = "/{groupName}/removeUser")
+    public void removeUserFromGroup(@PathVariable String groupName, @RequestBody EmailHolder userEmail) throws GroupNotFoundException, UserNotFoundException {
+        groupService.removeUserFromGroup(groupName, userEmail.getEmail());
     }
 }
