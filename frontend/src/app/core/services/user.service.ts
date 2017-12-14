@@ -13,7 +13,6 @@ export class UserService {
   constructor(private apiClientService: ApiClientService, private authService: AuthService) { }
 
   getUserByEmail(email: string): Observable<User> {
-    console.log(email);
     return this.apiClientService.get<User>('users/' + email);
   }
 
