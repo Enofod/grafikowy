@@ -5,7 +5,6 @@ import net.grafikowy.website.group.controller.dto.GroupDetailsDTO;
 import net.grafikowy.website.group.exception.GroupNotFoundException;
 import net.grafikowy.website.group.service.GroupService;
 import net.grafikowy.website.user.controller.exception.UserNotFoundException;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,8 +36,8 @@ public class GroupController {
     }
 
     @PostMapping("/{groupName}")
-    public GroupDetailsDTO createGroup(@PathVariable String groupName) {
-        return new GroupDetailsDTO(groupService.createGroup(groupName));
+    public GroupDetailsDTO createGroup(@PathVariable String groupName, @RequestBody EmailHolder moderatorEmail) throws UserNotFoundException {
+        return new GroupDetailsDTO(groupService.createGroup(groupName, moderatorEmail.getEmail()));
     }
 
     // TODO: Change to patch mapping

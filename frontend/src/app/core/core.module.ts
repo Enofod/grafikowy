@@ -14,6 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { Error404Component } from './components/error404/error404.component';
 import { LoginDialogComponent } from './components/header/login-dialog/login-dialog.component';
 import { RegisterDialogComponent } from './components/header/register-dialog/register-dialog.component';
+import { AddGroupDialogComponent } from './components/sidenav/add-group-dialog/add-group-dialog.component';
 import { UserComponent } from './components/user/user.component';
 
 import { AuthService } from './services/auth.service';
@@ -48,6 +49,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     HeaderComponent,
     LoginDialogComponent,
     RegisterDialogComponent,
+    AddGroupDialogComponent,
     UserComponent,
     SidenavComponent
   ],
@@ -62,7 +64,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
   ],
   entryComponents: [
     LoginDialogComponent,
-    RegisterDialogComponent
+    RegisterDialogComponent,
+    AddGroupDialogComponent
   ]
 })
 

@@ -9,6 +9,11 @@ export class GroupService {
 
   constructor(private apiClientService: ApiClientService) { }
 
+  addGroup(groupName: string, moderatorEmail: string): Observable<Object> {
+    const uri = 'groups/' + groupName;
+    return this.apiClientService.postForVoid(uri, {email: moderatorEmail});
+  }
+
   addUserToGroup(userEmail: string, groupName: string): Observable<Object> {
     const uri = 'groups/' + groupName + '/addUser';
     return this.apiClientService.postForVoid(uri, {email: userEmail});

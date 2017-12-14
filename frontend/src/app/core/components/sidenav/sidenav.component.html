@@ -22,6 +22,8 @@
       <div *ngFor="let moderatingGroup of loggedUser.moderatingGroups">
         <a class="sidenavButton" mat-button (click)="closeNavbar()" [routerLink]="['scheduler', moderatingGroup.name]">{{ moderatingGroup.name }}</a>
       </div>
+
+      <button mat-button color="primary" (click)="openAddGroupDialog()">Dodaj nową grupę</button>
     </div>
   </mat-expansion-panel>
 </div>

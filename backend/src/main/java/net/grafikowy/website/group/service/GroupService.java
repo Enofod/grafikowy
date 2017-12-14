@@ -36,8 +36,12 @@ public class GroupService {
     }
 
     @Transactional
-    public Group createGroup(String groupName) {
-        return groupRepository.save(new Group(groupName));
+    public Group createGroup(String groupName, String moderatorEmail) throws UserNotFoundException {
+        Group group = new Group(groupName);
+        User user = userRepository.findByEmail(moderatorEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + moderatorEmail + " not found!"));
+        group.addModerator(user);
+
+        return groupRepository.save(group);
     }
 
     @Transactional
