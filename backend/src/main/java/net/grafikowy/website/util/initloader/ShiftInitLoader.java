@@ -4,7 +4,6 @@ import net.grafikowy.website.shift.model.ShiftType;
 import net.grafikowy.website.shift.service.ShiftService;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 @Component
@@ -18,7 +17,7 @@ public class ShiftInitLoader {
 
     public void load() {
         String group1 = "Kardiolodzy";
-        String group2 = "Anystezjolodzy";
+        String group2 = "Anestezjolodzy";
 
         shiftService.addShift(1, LocalDate.now(), ShiftType.DAY, group1);
         shiftService.addShift(2, LocalDate.now().plusDays(1), ShiftType.NIGHT, group1);

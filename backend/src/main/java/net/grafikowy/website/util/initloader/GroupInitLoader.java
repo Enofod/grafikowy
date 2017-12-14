@@ -17,7 +17,7 @@ public class GroupInitLoader {
     public void load() throws GroupNotFoundException, UserNotFoundException {
         String firstGroupName = "Kardiolodzy";
         Group group1 = groupService.createGroup(firstGroupName, "a@a.pl");
-        String secondGroupName = "Anystezjolodzy";
+        String secondGroupName = "Anestezjolodzy";
         Group group2 = groupService.createGroup(secondGroupName, "a@a.pl");
 
         String groopOneName = group1.getName();
