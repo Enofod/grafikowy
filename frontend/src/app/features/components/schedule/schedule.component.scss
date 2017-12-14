@@ -11,7 +11,8 @@ $accent: map-get($light-theme, accent);
 }
 
 .schedulerHeader {
-  background-color: mat-color($primary);
+  background: mat-color($primary, 400);
+  color: #eeeeee;
 }
 
 .cellButton {
@@ -78,6 +79,7 @@ $accent: map-get($light-theme, accent);
     }
   }
   &.schedulerHeader {
-    background-color: mat-color($primary);
+    background: mat-color($primary, 400);
+    color: #eeeeee;
   }
 }
