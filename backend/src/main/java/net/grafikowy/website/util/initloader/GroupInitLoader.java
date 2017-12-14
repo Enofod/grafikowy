@@ -15,18 +15,19 @@ public class GroupInitLoader {
     }
 
     public void load() throws GroupNotFoundException, UserNotFoundException {
-        String firstGroupName = "Kotleciki";
-        Group group1 = groupService.createGroup(firstGroupName, "a");
-        String secondGroupName = "Schaboszczaki";
-        Group group2 = groupService.createGroup(secondGroupName, "a");
+        String firstGroupName = "Kardiolodzy";
+        Group group1 = groupService.createGroup(firstGroupName, "a@a.pl");
+        String secondGroupName = "Anystezjolodzy";
+        Group group2 = groupService.createGroup(secondGroupName, "a@a.pl");
 
         String groopOneName = group1.getName();
         String groupTwoName = group2.getName();
-        groupService.addUserToGroup(groopOneName, "a");
-        groupService.addUserToGroup(groopOneName, "b");
-        groupService.addUserToGroup(groopOneName, "c");
-        groupService.addUserToGroup(groopOneName, "c");
+        groupService.addUserToGroup(groopOneName, "a@a.pl");
+        groupService.addUserToGroup(groopOneName, "b@b.pl");
+        groupService.addUserToGroup(groopOneName, "c@c.pl");
+        groupService.addUserToGroup(groopOneName, "d@d.pl");
 
-        groupService.addUserToGroup(groupTwoName, "b");
+        groupService.addUserToGroup(groupTwoName, "a@a.pl");
+        groupService.addUserToGroup(groupTwoName, "d@d.pl");
     }
 }

@@ -35,7 +35,6 @@ export class AuthService {
     user.firstName = firstName;
     user.lastName = lastName;
     user.phone = phone;
-    console.log(user);
     return this.apiClientService.postWithoutAuthorizationForVoid('users/sign-up', user);
   }
 
