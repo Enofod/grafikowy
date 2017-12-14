@@ -4,7 +4,8 @@ $primary: map-get($light-theme, primary);
 $accent: map-get($light-theme, accent);
 
 .calendarHeader {
-  background-color: mat-color($primary);
+  background: mat-color($primary, 400);
+  color: #eeeeee;
 }
 
 .monthPicker {
@@ -41,7 +42,8 @@ $accent: map-get($light-theme, accent);
   $primary: map-get($dark-theme, primary);
   
   &.calendarHeader {
-    background-color: mat-color($primary);
+    background: mat-color($primary, 400);
+    color: #eeeeee;
   }
 
   &.mat-grid-tile {

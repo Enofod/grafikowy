@@ -2,8 +2,10 @@
 @import '../../../../grafikowy-theme.scss';
 $primary: map-get($light-theme, primary);
 $accent: map-get($light-theme, accent);
+
 .headerWrapper {
-  border-bottom: 1px solid mat-color($primary, 100);
+  background-color: mat-color($primary);
+  //border-bottom: 1px solid mat-color($primary, 100);
 }
 
 .navigationBar {
@@ -19,6 +21,7 @@ $accent: map-get($light-theme, accent);
   $accent: map-get($dark-theme, accent);
   $primary: map-get($dark-theme, primary);
   &.headerWrapper {
-    border-bottom: 1px solid mat-color($primary, 100);
+    background-color: mat-color($primary);
+    //border-bottom: 1px solid mat-color($primary, 100);
   }
 }
