@@ -5,7 +5,6 @@ $accent: map-get($light-theme, accent);
 
 .headerWrapper {
   background-color: mat-color($primary);
-  //border-bottom: 1px solid mat-color($primary, 100);
 }
 
 .navigationBar {
@@ -22,6 +21,5 @@ $accent: map-get($light-theme, accent);
   $primary: map-get($dark-theme, primary);
   &.headerWrapper {
     background-color: mat-color($primary);
-    //border-bottom: 1px solid mat-color($primary, 100);
   }
 }

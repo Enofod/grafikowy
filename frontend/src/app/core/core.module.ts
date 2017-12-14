@@ -26,6 +26,7 @@ import { ThemeService } from './services/theme.service';
 import { UserAuthGuard } from './guards/user-auth.guard';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     RegisterDialogComponent,
     AddGroupDialogComponent,
     UserComponent,
-    SidenavComponent
+    SidenavComponent,
+    LandingComponent
   ],
   providers: [
     AuthService,
