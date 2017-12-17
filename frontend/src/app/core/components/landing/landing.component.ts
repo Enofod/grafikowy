@@ -3,7 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css'],
+  styles: [require('./landing.component.scss')],
   encapsulation: ViewEncapsulation.Emulated
 })
 export class LandingComponent implements OnInit {
