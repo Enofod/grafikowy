@@ -22,6 +22,8 @@ export class CalendarComponent implements OnInit {
     'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
 
   private dayNames: string[] = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
+  private dayNamesMobile: string[] = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Niedz'];
+  shouldDisplayDesktop = window.innerWidth > 700;
 
   calendar: any[] = [];
 
@@ -33,12 +35,18 @@ export class CalendarComponent implements OnInit {
   constructor(private route: ActivatedRoute, private themeService: ThemeService, private calendarService: CalendarService,
     private authService: AuthService) { }
 
+  onResize = () => this.shouldDisplayDesktop = window.innerWidth > 700;
+
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       this.groupName = params.groupName;
-
       this.updateTiles();
     });
+    window.addEventListener('resize', this.onResize);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.onResize);
   }
 
   updateTiles() {
@@ -58,10 +66,6 @@ export class CalendarComponent implements OnInit {
     const tempTiles = new Array();
 
 
-    this.dayNames.forEach(dayName => {
-      tempTiles.push({ text: dayName, day: '', qualifier: 'dayName' });
-    });
-
     if (firstDay.getDay() - 1 === -1) {
       firstDayOfTheWeek = 7;
     }
@@ -79,10 +83,9 @@ export class CalendarComponent implements OnInit {
       }
     }
 
-    console.log(calendar);
     calendar.shiftInDay.forEach(shiftInDay => {
-      tempTiles[this.dayNames.length + firstDayOfTheWeek - 1 + shiftInDay.day - 1].qualifier = shiftInDay.shiftType;
-      tempTiles[this.dayNames.length + firstDayOfTheWeek - 1 + shiftInDay.day - 1].text =
+      tempTiles[firstDayOfTheWeek - 1 + shiftInDay.day - 1].qualifier = shiftInDay.shiftType;
+      tempTiles[firstDayOfTheWeek - 1 + shiftInDay.day - 1].text =
         this.getDisplayShiftTypeText(shiftInDay.shiftType);
     });
 

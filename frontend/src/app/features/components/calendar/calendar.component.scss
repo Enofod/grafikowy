@@ -3,6 +3,24 @@
 $primary: map-get($light-theme, primary);
 $accent: map-get($light-theme, accent);
 
+/*
+.tableHeadersDesktop {
+  display: flex !important;
+
+  @media (max-width: 920px) {
+    display: none !important;
+  }
+}
+
+.tableHeadersMobile {
+  display: none !important;
+
+  @media (max-width: 920px) {
+    display: flex !important;
+  }
+}
+*/
+
 .calendarHeader {
   background: mat-color($primary, 400);
   color: #eeeeee;
@@ -27,6 +45,9 @@ $accent: map-get($light-theme, accent);
 .mat-grid-tile {
   border: 1px solid #ddd;
   &.dayName {
+    background: mat-color($primary, 200);
+  }
+  &.dayNameMobile {
     background: mat-color($primary, 200);
   }
   &.DAY {
