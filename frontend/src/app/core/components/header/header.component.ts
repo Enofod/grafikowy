@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
 import { AuthService } from '../../services/auth.service';
 import { ThemeService } from '../../services/theme.service';
 import { UserService } from '../../services/user.service';
@@ -44,11 +45,19 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  openRegisterDialog(): void {
+    const dialogRef = this.dialog.open(RegisterDialogComponent, {
+      width: '450px'
+    });
+  }
+
   logout() {
     this.authService.logout();
     this.loggedUser = null;
 
-    this.router.navigate(['/']); //for the case 'the user logout I want him to be redirected to home.
+    this.sidenavService
+    .close();
+    this.router.navigate(['/']);
   }
 
   loadLoggedInUser(): void {

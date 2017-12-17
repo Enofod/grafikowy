@@ -7,7 +7,7 @@
     </mat-expansion-panel-header>
     <div *ngIf="loggedUser">
       <div *ngFor="let usingGroup of loggedUser.usingGroups">
-        <a class="sidenavButton" mat-button routerLink=".">{{ usingGroup.name }}</a>
+        <a class="sidenavButton" mat-button (click)="closeNavbar()" [routerLink]="['calendar', usingGroup.name]">{{ usingGroup.name }}</a>
       </div>
     </div>
   </mat-expansion-panel>
@@ -20,8 +20,10 @@
     </mat-expansion-panel-header>
     <div *ngIf="loggedUser">
       <div *ngFor="let moderatingGroup of loggedUser.moderatingGroups">
-        <a class="sidenavButton" mat-button [routerLink]="['scheduler', moderatingGroup.id]">{{ moderatingGroup.name }}</a>
+        <a class="sidenavButton" mat-button (click)="closeNavbar()" [routerLink]="['scheduler', moderatingGroup.name]">{{ moderatingGroup.name }}</a>
       </div>
+
+      <button mat-button color="primary" (click)="openAddGroupDialog()">Dodaj nową grupę</button>
     </div>
   </mat-expansion-panel>
 </div>

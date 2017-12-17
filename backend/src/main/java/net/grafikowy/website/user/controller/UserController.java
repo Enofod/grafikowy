@@ -31,11 +31,12 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public void signUp(@RequestBody @Valid SignUpUserDTO signUpUserDTO) {
+        System.out.println(signUpUserDTO);
         User saveUser = userService.saveUser(signUpUserDTO.getEmail(), signUpUserDTO.getPassword(), signUpUserDTO.getFirstName(), signUpUserDTO.getLastName(), signUpUserDTO.getPhone(), AuthorityConstant.USER);
         logger.info("Created user: {}", saveUser);
     }
 
-    @GetMapping("/{userEmail}")
+    @GetMapping("/{userEmail:.+}")
     public UserDetailsDTO getUser(@PathVariable String userEmail) throws UserNotFoundException {
         User storedUser = userService.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + "not found"));
         return new UserDetailsDTO(storedUser);

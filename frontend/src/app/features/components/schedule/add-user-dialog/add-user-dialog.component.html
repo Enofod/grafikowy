@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Dodaj uzytkownika do grupy</h2>
+<mat-dialog-content>
+  <form #loginForm="ngForm" (ngSubmit)="sendAddUserRequest()" fxLayout="column" class="loginForm">
+    <mat-form-field class="emailForm">
+      <input matInput [(ngModel)]="email" name="email" type="Email" placeholder="Email" [formControl]="emailFormControl" required>
+    </mat-form-field>
+    <button mat-raised-button type="submit" color="primary">Dodaj</button>
+  </form>
+</mat-dialog-content>

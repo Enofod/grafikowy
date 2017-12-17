@@ -3,6 +3,7 @@ package net.grafikowy.website.util.initloader;
 import net.grafikowy.website.group.exception.GroupNotFoundException;
 import net.grafikowy.website.group.model.Group;
 import net.grafikowy.website.group.service.GroupService;
+import net.grafikowy.website.user.controller.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,18 +14,20 @@ public class GroupInitLoader {
         this.groupService = groupService;
     }
 
-    public void load() throws GroupNotFoundException {
-        String firstGroupName = "Kotleciki";
-        Group group1 = groupService.createGroup(firstGroupName);
-        String secondGroupName = "Schaboszczaki";
-        Group group2 = groupService.createGroup(secondGroupName);
+    public void load() throws GroupNotFoundException, UserNotFoundException {
+        String firstGroupName = "Kardiolodzy";
+        Group group1 = groupService.createGroup(firstGroupName, "a@a.pl");
+        String secondGroupName = "Anestezjolodzy";
+        Group group2 = groupService.createGroup(secondGroupName, "a@a.pl");
 
-        long groupOneId = group1.getId();
-        groupService.addModeratorToGroup(groupOneId, "a");
-        groupService.addModeratorToGroup(group2.getId(), "a");
-        groupService.addUserToGroup(groupOneId, "a");
-        groupService.addUserToGroup(groupOneId, "b");
+        String groopOneName = group1.getName();
+        String groupTwoName = group2.getName();
+        groupService.addUserToGroup(groopOneName, "a@a.pl");
+        groupService.addUserToGroup(groopOneName, "b@b.pl");
+        groupService.addUserToGroup(groopOneName, "c@c.pl");
+        groupService.addUserToGroup(groopOneName, "d@d.pl");
 
-        groupService.addUserToGroup(group2.getId(), "b");
+        groupService.addUserToGroup(groupTwoName, "a@a.pl");
+        groupService.addUserToGroup(groupTwoName, "d@d.pl");
     }
 }

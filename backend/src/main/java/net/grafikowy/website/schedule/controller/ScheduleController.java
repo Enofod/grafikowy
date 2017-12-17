@@ -1,14 +1,9 @@
 package net.grafikowy.website.schedule.controller;
 
-import net.grafikowy.website.schedule.model.Schedule;
+import net.grafikowy.website.group.exception.GroupNotFoundException;
+import net.grafikowy.website.schedule.model.ScheduleDTO;
 import net.grafikowy.website.schedule.service.ScheduleService;
-import net.grafikowy.website.shift.model.Shift;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Set;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/schedule")
@@ -21,10 +16,13 @@ public class ScheduleController {
     }
 
     @GetMapping("/group")
-    public Schedule getScheduleForGroupInSpecifiedYearAndMonth(@RequestParam(name = "groupId") Long groupId, @RequestParam(name = "year") int year, @RequestParam(name = "month") int month) {
-        System.out.println(groupId);
-        System.out.println(year);
-        System.out.println(month);
-        return scheduleService.getSchedule(groupId, year, month);
+    public ScheduleDTO getScheduleForGroupInSpecifiedYearAndMonth(@RequestParam(name = "groupName") String groupName, @RequestParam(name = "year") int year, @RequestParam(name = "month") int month) throws GroupNotFoundException {
+        return scheduleService.getSchedule(groupName, year, month);
+    }
+
+    @PostMapping("/group")
+    public void saveSchedule(@RequestBody ScheduleDTO scheduleDTO) throws GroupNotFoundException {
+        scheduleService.removeSchedulesForGroupInYearAndMonth(scheduleDTO.getGroupName(), scheduleDTO.getYear(), scheduleDTO.getMonth());
+        scheduleService.saveSchedule(scheduleDTO);
     }
 }

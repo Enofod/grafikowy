@@ -3,9 +3,9 @@ package net.grafikowy.website.group.service;
 import net.grafikowy.website.group.exception.GroupNotFoundException;
 import net.grafikowy.website.group.model.Group;
 import net.grafikowy.website.group.repository.GroupRepository;
+import net.grafikowy.website.user.controller.exception.UserNotFoundException;
 import net.grafikowy.website.user.model.User;
 import net.grafikowy.website.user.repository.UserRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,27 +27,43 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
-    public Group getOne(Long id) {
-        return groupRepository.findOne(id);
+    public Optional<Group> findOne(Long id) {
+        return Optional.ofNullable(groupRepository.findOne(id));
+    }
+
+    public Optional<Group> findByName(String name) {
+        return groupRepository.findByName(name);
     }
 
     @Transactional
-    public Group createGroup(String groupName) {
-        return groupRepository.save(new Group(groupName));
+    public Group createGroup(String groupName, String moderatorEmail) throws UserNotFoundException {
+        Group group = new Group(groupName);
+        User user = userRepository.findByEmail(moderatorEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + moderatorEmail + " not found!"));
+        group.addModerator(user);
+
+        return groupRepository.save(group);
     }
 
     @Transactional
-    public void addUserToGroup(long groupId, String userEmail) throws GroupNotFoundException {
-        Group group = Optional.ofNullable(groupRepository.findOne(groupId)).orElseThrow(() -> new GroupNotFoundException("Group with id: " + groupId + " not found!"));
-        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("User with email: " + userEmail + " not found!"));
+    public void addUserToGroup(String groupName, String userEmail) throws GroupNotFoundException, UserNotFoundException {
+        Group group = groupRepository.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name: " + groupName + " not found!"));
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + " not found!"));
 
         group.addUser(user);
     }
 
     @Transactional
-    public void addModeratorToGroup(long groupId, String userEmail) throws GroupNotFoundException {
-        Group group = Optional.ofNullable(groupRepository.findOne(groupId)).orElseThrow(() -> new GroupNotFoundException("Group with id: " + groupId + " not found!"));
-        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("User with email: " + userEmail + " not found!"));
+    public void removeUserFromGroup(String groupName, String userEmail) throws GroupNotFoundException, UserNotFoundException {
+        Group group = groupRepository.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name: " + groupName + " not found!"));
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + " not found!"));
+
+        group.removeUser(user);
+    }
+
+    @Transactional
+    public void addModeratorToGroup(String groupName, String userEmail) throws GroupNotFoundException, UserNotFoundException {
+        Group group = groupRepository.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name: " + groupName + " not found!"));
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + " not found!"));
 
         group.addModerator(user);
     }

@@ -13,6 +13,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { Error404Component } from './components/error404/error404.component';
 import { LoginDialogComponent } from './components/header/login-dialog/login-dialog.component';
+import { RegisterDialogComponent } from './components/header/register-dialog/register-dialog.component';
+import { AddGroupDialogComponent } from './components/sidenav/add-group-dialog/add-group-dialog.component';
 import { UserComponent } from './components/user/user.component';
 
 import { AuthService } from './services/auth.service';
@@ -24,6 +26,7 @@ import { ThemeService } from './services/theme.service';
 import { UserAuthGuard } from './guards/user-auth.guard';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { LandingComponent } from './components/landing/landing.component';
 
 @NgModule({
   imports: [
@@ -46,8 +49,11 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     Error404Component,
     HeaderComponent,
     LoginDialogComponent,
+    RegisterDialogComponent,
+    AddGroupDialogComponent,
     UserComponent,
-    SidenavComponent
+    SidenavComponent,
+    LandingComponent
   ],
   providers: [
     AuthService,
@@ -59,7 +65,9 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     AdminAuthGuard
   ],
   entryComponents: [
-    LoginDialogComponent
+    LoginDialogComponent,
+    RegisterDialogComponent,
+    AddGroupDialogComponent
   ]
 })
 

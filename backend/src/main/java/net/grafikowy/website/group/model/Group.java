@@ -2,9 +2,11 @@ package net.grafikowy.website.group.model;
 
 import net.grafikowy.website.shift.model.Shift;
 import net.grafikowy.website.user.model.User;
+import org.springframework.data.jpa.repository.Modifying;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,13 +27,22 @@ public class Group {
     @JoinTable(name = "moderator_group", joinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private Set<User> moderators = new HashSet<>();
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     private Set<Shift> shifts;
 
-    public Group() {}
+    public Group() {
+    }
 
     public Group(String name) {
         this.name = name;
+    }
+
+    public void addShift(Shift shift) {
+        shifts.add(shift);
+    }
+
+    public void removeShifts(List<Shift> shifts) {
+        shifts.remove(shifts);
     }
 
     public boolean addUser(User user) {
@@ -95,9 +106,6 @@ public class Group {
         return "Group{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
-                ", moderators=" + moderators +
-                ", shifts=" + shifts +
                 '}';
     }
 

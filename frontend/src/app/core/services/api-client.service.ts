@@ -24,7 +24,25 @@ export class ApiClientService {
     );
   }
 
-  postWithoutAuthorizationForEmptyResponse(uri: string, body: any): Observable<Object> {
+  postForVoid(uri: string, body: any): Observable<Object> {
+    return this.http.post(environment.apiUrl.concat(uri), body,
+      {
+        headers: new HttpHeaders({ 'Authorization': localStorage.getItem(environment.authTokenLocalStorageKey) }),
+        responseType: 'text' as 'text',
+        observe: 'response'
+      });
+  }
+
+  putForVoid(uri: string, body: any): Observable<Object> {
+    return this.http.put(environment.apiUrl.concat(uri), body,
+      {
+        headers: new HttpHeaders({ 'Authorization': localStorage.getItem(environment.authTokenLocalStorageKey) }),
+        responseType: 'text' as 'text',
+        observe: 'response'
+      });
+  }
+
+  postWithoutAuthorizationForVoid(uri: string, body: any): Observable<Object> {
     return this.http.post(environment.apiUrl.concat(uri), body,
       {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

@@ -1,0 +1,62 @@
+@import '~@angular/material/theming';
+@import '../../../../grafikowy-theme.scss';
+$primary: map-get($light-theme, primary);
+$accent: map-get($light-theme, accent);
+
+.calendarHeader {
+  background: mat-color($primary, 400);
+  color: #eeeeee;
+}
+
+.monthPicker {
+  display: flex;
+}
+
+.monthDisplay {
+  flex: 1;
+  text-align: center;
+}
+
+.dayHolder {
+  position:absolute;
+  top:0;
+  right:0;
+  margin: 5px;
+}
+
+.mat-grid-tile {
+  border: 1px solid #ddd;
+  &.dayName {
+    background: mat-color($primary, 200);
+  }
+  &.DAY {
+    background: mat-color($primary, 100);
+  }
+  &.NIGHT {
+    background: mat-color($accent, 100);
+  }
+}
+
+.dark {
+  $accent: map-get($dark-theme, accent);
+  $primary: map-get($dark-theme, primary);
+  
+  &.calendarHeader {
+    background: mat-color($primary, 400);
+    color: #eeeeee;
+  }
+
+  &.mat-grid-tile {
+    &.dayName {
+      background: mat-color($primary, 200);
+    }
+    &.DAY {
+      background: mat-color($primary, 100);
+    }
+    &.NIGHT {
+      background: mat-color($accent, 100);
+    }
+  }
+}
+
+

@@ -2,8 +2,6 @@ package net.grafikowy.website.shift.controller.dto;
 
 import net.grafikowy.website.shift.model.ShiftType;
 
-import java.time.LocalDate;
-
 public class ShiftDayTypeDTO {
     private int day;
     private ShiftType shiftType;

@@ -16,6 +16,15 @@ public class ShiftInitLoader {
     }
 
     public void load() {
-        shiftService.addShift(1, LocalDate.now(), ShiftType.DAY, 1);
+        String group1 = "Kardiolodzy";
+        String group2 = "Anestezjolodzy";
+
+        shiftService.addShift(1, LocalDate.now(), ShiftType.DAY, group1);
+        shiftService.addShift(2, LocalDate.now().plusDays(1), ShiftType.NIGHT, group1);
+        shiftService.addShift(2, LocalDate.now().plusDays(5), ShiftType.NIGHT, group2);
+        shiftService.addShift(2, LocalDate.now().minusDays(4), ShiftType.NIGHT, group1);
+        shiftService.addShift(1, LocalDate.now().plusDays(7), ShiftType.DAY, group2);
+        shiftService.addShift(2, LocalDate.now().minusDays(2), ShiftType.NIGHT, group1);
     }
+
 }

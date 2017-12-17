@@ -3,6 +3,7 @@ import { ApiClientService } from './api-client.service';
 import { Observable } from 'rxjs/Observable';
 import { JwtHelper } from 'angular2-jwt';
 import { environment } from '../../../environments/environment';
+import { SignUpUser } from '../model/sign-up-user';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -18,13 +19,23 @@ export class AuthService {
 
   // It returns true, if valid authentication, otherwise it throws error
   authenticate(email: string, password: string): Observable<boolean> {
-    return this.apiClientService.postWithoutAuthorizationForEmptyResponse('login', new LoginCredentials(email, password)).map(
+    return this.apiClientService.postWithoutAuthorizationForVoid('login', new LoginCredentials(email, password)).map(
       (response: Response) => {
         const authToken = response.headers.get('Authorization');
         localStorage.setItem(environment.authTokenLocalStorageKey, authToken);
         return true;
       }
     );
+  }
+
+  signUp(email: string, password: string, firstName: string, lastName: string, phone: string): Observable<Object> {
+    const user = new SignUpUser();
+    user.email = email;
+    user.password = password;
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.phone = phone;
+    return this.apiClientService.postWithoutAuthorizationForVoid('users/sign-up', user);
   }
 
   logout(): void {

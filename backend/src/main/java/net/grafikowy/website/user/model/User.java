@@ -7,50 +7,51 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-public class User {
+    @Entity
+    public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private long id;
 
-    private String email;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String phone;
+        @Column(unique = true)
+        private String email;
+        private String password;
+        private String firstName;
+        private String lastName;
+        private String phone;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_authority",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")}
-    )
-    private Set<Authority> authorities = new HashSet<>();
+        @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @JoinTable(
+                name = "user_authority",
+                joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+                inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")}
+        )
+        private Set<Authority> authorities = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_group",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "group_id", referencedColumnName = "id")}
-    )
-    private Set<Group> usingGroups = new HashSet<>();
+        @ManyToMany(cascade = CascadeType.ALL)
+        @JoinTable(
+                name = "user_group",
+                joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+                inverseJoinColumns = {@JoinColumn(name = "group_id", referencedColumnName = "id")}
+        )
+        private Set<Group> usingGroups = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "moderator_group",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "group_id", referencedColumnName = "id")}
-    )
-    private Set<Group> moderatingGroups = new HashSet<>();
+        @ManyToMany(cascade = CascadeType.ALL)
+        @JoinTable(
+                name = "moderator_group",
+                joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+                inverseJoinColumns = {@JoinColumn(name = "group_id", referencedColumnName = "id")}
+        )
+        private Set<Group> moderatingGroups = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_shifts",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "shift_id", referencedColumnName = "id")}
-    )
-    private Set<Shift> shifts = new HashSet<>();
+        @ManyToMany(cascade = CascadeType.ALL)
+        @JoinTable(
+                name = "user_shifts",
+                joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+                inverseJoinColumns = {@JoinColumn(name = "shift_id", referencedColumnName = "id")}
+        )
+        private Set<Shift> shifts = new HashSet<>();
 
     public User(String email, String password, String firstName, String lastName, String phone) {
         this.email = email;
@@ -161,9 +162,6 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", authorities=" + authorities +
-                ", usingGroups=" + usingGroups +
-                ", moderatingGroups=" + moderatingGroups +
-                ", shifts=" + shifts +
                 '}';
     }
 

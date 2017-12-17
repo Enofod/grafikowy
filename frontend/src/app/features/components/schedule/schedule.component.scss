@@ -1,0 +1,85 @@
+@import '~@angular/material/theming';
+@import '../../../../grafikowy-theme.scss';
+$primary: map-get($light-theme, primary);
+$accent: map-get($light-theme, accent);
+.schedule {
+  margin-top: 20px;
+}
+
+.mat-table {
+  overflow: auto;
+}
+
+.schedulerHeader {
+  background: mat-color($primary, 400);
+  color: #eeeeee;
+}
+
+.cellButton {
+  min-width: 40px;
+  flex: 1;
+  &.DAY {
+    background-color: mat-color($primary, 200);
+  }
+  &.NIGHT {
+    background-color: mat-color($accent, 200);
+  }
+}
+
+.monthPicker {
+  display: flex;
+}
+
+.monthDisplay {
+  flex: 1;
+  text-align: center;
+}
+
+.buttonsHolder {
+  margin: 10px;
+  display: flex;
+  float: right;
+
+  & button {
+    margin-left: 15px;
+  }
+}
+
+.mat-header-cell {
+  &.shift {
+    text-align: center;
+  }
+}
+
+.tableHeader {
+  flex-shrink: 0;
+  flex-basis: 40px;
+  &.userName {
+    flex-basis: 150px;
+  }
+}
+
+.tableCell {
+  flex-shrink: 0;
+  flex-basis: 40px;
+  &.userName {
+    flex-basis: 150px;
+  }
+}
+
+.dark {
+  $accent: map-get($dark-theme, accent);
+  $primary: map-get($dark-theme, primary);
+  &.cellButton {
+    &.DAY {
+      background-color: mat-color($primary, 200);
+    }
+    &.NIGHT {
+      background-color: mat-color($accent, 200);
+    }
+  }
+  &.schedulerHeader {
+    background: mat-color($primary, 400);
+    color: #eeeeee;
+  }
+}
