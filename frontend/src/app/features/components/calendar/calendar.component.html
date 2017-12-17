@@ -20,13 +20,13 @@
   <mat-card>
     <mat-card-content>
       <mat-grid-list [cols]="fixedCols" [rowHeight]="fixedRowHeight">
-        <div *ngIf="dupa" class="tableHeadersDesktop">
+        <div *ngIf="shouldDisplayDesktop" class="tableHeadersDesktop">
           <mat-grid-tile *ngFor="let dayName of dayNames" class="dayName" [class.dark]="isDarkTheme()">
             {{dayName}}
           </mat-grid-tile>
         </div>
 
-        <div *ngIf="!dupa" class="tableHeadersMobile">
+        <div *ngIf="!shouldDisplayDesktop" class="tableHeadersMobile">
           <mat-grid-tile *ngFor="let dayName of dayNamesMobile" class="dayName" [class.dark]="isDarkTheme()">
             {{dayName}}
           </mat-grid-tile>
