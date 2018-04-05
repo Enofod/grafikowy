@@ -80,9 +80,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
   saveSchedule() {
-    this.scheduleService.postSchedule(this.schedule).subscribe(response => {
-      this.snackBar.open('Zapisano zmiany!', 'OK', { duration: 2500 });
-    });
+    this.snackBar.open('Funcjonalnosc jeszcze nie wspierana!', 'OK', { duration: 2500 });
   }
 
   generateHeaders(daysInMonth: number) {
