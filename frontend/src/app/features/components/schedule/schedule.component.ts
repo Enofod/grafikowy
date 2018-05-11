@@ -19,6 +19,7 @@ import { MatSnackBar } from '@angular/material';
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 import { RemoveUserDialogComponent } from './remove-user-dialog/remove-user-dialog.component';
 import { MatDialog } from '@angular/material';
+import { validateBasis } from '@angular/flex-layout';
 
 declare var require: any;
 
@@ -81,7 +82,9 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
   saveSchedule() {
     this.scheduleService.postSchedule(this.schedule).subscribe(response => {
-      this.snackBar.open('Zapisano zmiany!', 'OK', { duration: 2500 });
+      this.scheduleService.postSchedule(this.schedule).subscribe(secondResponse => {
+        this.snackBar.open('Zapisano zmiany!', 'OK', { duration: 2500 });
+      });
     });
   }
 
@@ -160,8 +163,11 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   handleCellClick(row: string, column: string) {
     const cellValue = this.tableData[row][column];
 
-    if (cellValue.shiftType !== null) {
+    if (cellValue.firstName == null) {
       this.changeShiftType(row, column);
+    } else {
+      this.snackBar.open('Email użytkownika ' + cellValue.firstName + ' ' + cellValue.lastName + ': ' + cellValue.email,
+       'OK', { duration: 2500 });
     }
   }
 

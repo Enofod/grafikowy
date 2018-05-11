@@ -41,7 +41,8 @@ $accent: map-get($light-theme, accent);
   float: right;
 
   & button {
-    margin-left: 15px;
+    margin-left: 5px;
+    min-width: 1%;
   }
 }
 

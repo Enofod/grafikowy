@@ -35,6 +35,11 @@ public class GroupService {
         return groupRepository.findByName(name);
     }
 
+    public boolean groupExists(String groupName) {
+        Optional<Group> groupByName = groupRepository.findByName(groupName);
+        return groupByName.isPresent();
+    }
+
     @Transactional
     public Group createGroup(String groupName, String moderatorEmail) throws UserNotFoundException {
         Group group = new Group(groupName);

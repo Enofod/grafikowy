@@ -36,7 +36,7 @@ import { LandingComponent } from './components/landing/landing.component';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   exports: [
     HeaderComponent,
@@ -62,7 +62,8 @@ import { LandingComponent } from './components/landing/landing.component';
     SidenavService,
     ThemeService,
     UserAuthGuard,
-    AdminAuthGuard
+    AdminAuthGuard,
+    SidenavComponent
   ],
   entryComponents: [
     LoginDialogComponent,

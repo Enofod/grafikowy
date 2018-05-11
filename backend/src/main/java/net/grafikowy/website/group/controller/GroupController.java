@@ -37,6 +37,9 @@ public class GroupController {
 
     @PostMapping("/{groupName}")
     public GroupDetailsDTO createGroup(@PathVariable String groupName, @RequestBody EmailHolder moderatorEmail) throws UserNotFoundException {
+        if (groupService.groupExists(groupName)) {
+            throw new IllegalArgumentException("Group already exists");
+        }
         return new GroupDetailsDTO(groupService.createGroup(groupName, moderatorEmail.getEmail()));
     }
 

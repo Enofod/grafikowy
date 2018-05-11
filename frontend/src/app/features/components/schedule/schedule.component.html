@@ -34,16 +34,16 @@
 
 
 <div class="buttonsHolder">
-  <button mat-mini-fab>
-    <mat-icon aria-label="Usuń uzytownika" (click)="openRemoveUserDialog()">remove</mat-icon>
+  <button mat-raised-button (click)="openRemoveUserDialog()">
+    Usuń użytkownika z grupy
   </button>
-  <button mat-mini-fab>
-    <mat-icon aria-label="Dodaj uzytownika" (click)="opendAddUserDialog()">add</mat-icon>
+  <button mat-raised-button (click)="opendAddUserDialog()">
+    Dodaj użytkownika do grupy
   </button>
-  <button mat-mini-fab color="warn">
-    <mat-icon aria-label="Resetuj grafik" (click)="loadSchedule()">restore</mat-icon>
+  <button mat-raised-button color="warn" (click)="loadSchedule()">
+    Porzuć lokalne zmiany
   </button>
-  <button mat-fab color="primary" class="sendButton" (click)="saveSchedule()">
-    <mat-icon aria-label="Wyślij grafik">send</mat-icon>
+  <button mat-raised-button color="primary" class="sendButton" (click)="saveSchedule()">
+    Zapisz grafik
   </button>
 </div>

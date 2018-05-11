@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../model/user';
 import { MatDialog } from '@angular/material';
 import { ThemeService } from '../../services/theme.service';
 import { SidenavService } from '../../services/sidenav.service';
 import { AddGroupDialogComponent } from './add-group-dialog/add-group-dialog.component';
+import { setTimeout } from 'timers';
 
 declare var require: any;
 
@@ -21,7 +22,8 @@ export class SidenavComponent implements OnInit {
     private dialog: MatDialog,
     private userService: UserService,
     private themeService: ThemeService,
-    private sidenavService: SidenavService) { }
+    private sidenavService: SidenavService,
+    private zone: NgZone) { }
 
   ngOnInit() {
     this.loadLoggedInUser();
@@ -29,7 +31,12 @@ export class SidenavComponent implements OnInit {
 
   loadLoggedInUser(): void {
     this.userService.getCurrentUserDetails().subscribe(user => {
-      this.loggedUser = user;
+      this.zone.run(() => {
+        this.loggedUser = user;
+        if (this.loggedUser !== null) {
+          this.sidenavService.open();
+        }
+      });
     });
   }
 
