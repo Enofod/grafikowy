@@ -30,12 +30,10 @@ export class SidenavComponent implements OnInit {
 
   loadLoggedInUser(): void {
     this.userService.getCurrentUserDetails().subscribe(user => {
-      this.zone.run(() => {
-        this.loggedUser = user;
-        if (this.loggedUser !== null) {
-          this.sidenavService.open();
-        }
-      });
+      this.loggedUser = user;
+      if (this.loggedUser !== null) {
+        this.sidenavService.open();
+      }
     });
   }
 

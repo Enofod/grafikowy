@@ -34,8 +34,9 @@ export class LoginDialogComponent {
     this.authService.authenticate(this.email, this.password).subscribe(validAuthentication => {
       if (validAuthentication) {
         this.dialogRef.close('Zalogowano!');
-        this.router.navigate(['/']);
+        this.router.navigate(['/']);        
         this.sidenavComponent.loadLoggedInUser();
+        window.location.reload();
       }
     },
       err => {
