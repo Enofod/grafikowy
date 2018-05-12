@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material';
 import { ThemeService } from '../../services/theme.service';
 import { SidenavService } from '../../services/sidenav.service';
 import { AddGroupDialogComponent } from './add-group-dialog/add-group-dialog.component';
-import { setTimeout } from 'timers';
 
 declare var require: any;
 
