@@ -33,6 +33,15 @@ export class ApiClientService {
       });
   }
 
+  delete(uri: string): Observable<Object> {
+    return this.http.delete(environment.apiUrl.concat(uri),
+      {
+        headers: new HttpHeaders({ 'Authorization': localStorage.getItem(environment.authTokenLocalStorageKey) }),
+        responseType: 'text' as 'text',
+        observe: 'response'
+      });
+  }
+
   putForVoid(uri: string, body: any): Observable<Object> {
     return this.http.put(environment.apiUrl.concat(uri), body,
       {

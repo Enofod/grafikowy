@@ -14,7 +14,7 @@ public class UserInitLoader {
     }
 
     public void load() {
-        userService.saveUser("a@a.pl", "a", "Dawid", "Kunert", "12331414141241", AuthorityConstant.ADMIN);
+        userService.saveUser("jan@kowalski.pl", "trudne", "Jan", "Kowalski", "12331414141241", AuthorityConstant.ADMIN);
         userService.saveUser("b@b.pl", "b", "Mariola", "Kowalska", "1231241", AuthorityConstant.USER);
         userService.saveUser("c@c.pl", "c", "Janusz", "Ogórek", "12312414", AuthorityConstant.USER);
         userService.saveUser("d@d.pl", "d", "Wiesława", "Mączka", "12312414", AuthorityConstant.USER);

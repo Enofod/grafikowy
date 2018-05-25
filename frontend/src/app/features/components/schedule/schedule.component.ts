@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Schedule } from '../../model/schedule/schedule';
 import { ScheduleService } from '../../services/schedule.service';
 import { MatTableDataSource } from '@angular/material';
+import { Router } from '@angular/router';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -20,6 +21,8 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
 import { RemoveUserDialogComponent } from './remove-user-dialog/remove-user-dialog.component';
 import { MatDialog } from '@angular/material';
 import { validateBasis } from '@angular/flex-layout';
+import { GroupService } from '../../services/group.service';
+import { SidenavComponent } from '../../../core/components/sidenav/sidenav.component';
 
 declare var require: any;
 
@@ -48,11 +51,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   private schedule: Schedule;
 
   constructor(private route: ActivatedRoute,
-      private scheduleService: ScheduleService,
-      private themeService: ThemeService,
-      private snackBar: MatSnackBar,
-      private dialog: MatDialog
-    ) {
+    private scheduleService: ScheduleService,
+    private themeService: ThemeService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private groupService: GroupService,
+    private router: Router,
+    private sidenavComponent: SidenavComponent
+  ) {
     this.dataSource = new TableDataSource(this.dataSubject);
   }
 
@@ -167,7 +173,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
       this.changeShiftType(row, column);
     } else {
       this.snackBar.open('Email użytkownika ' + cellValue.firstName + ' ' + cellValue.lastName + ': ' + cellValue.email,
-       'OK', { duration: 2500 });
+        'OK', { duration: 2500 });
     }
   }
 
@@ -208,6 +214,8 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       this.loadSchedule();
+      this.sidenavComponent.loadLoggedInUser();
+      window.location.reload();
     });
   }
 
@@ -219,7 +227,19 @@ export class ScheduleComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(result => {
       this.loadSchedule();
+      this.sidenavComponent.loadLoggedInUser();
+      window.location.reload();
     });
+  }
+
+  removeGroup(): void {
+    if (confirm('Czy na pewno chcesz usunąć grupę ' + this.groupName + '?')) {
+      this.groupService.removeGroup(this.groupName).subscribe(result => {
+        this.router.navigate(['/']);
+        this.sidenavComponent.loadLoggedInUser();
+        window.location.reload();
+      });
+    }
   }
 
   isDarkTheme() {

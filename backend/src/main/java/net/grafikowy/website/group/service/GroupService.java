@@ -9,6 +9,7 @@ import net.grafikowy.website.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,5 +72,15 @@ public class GroupService {
         User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UserNotFoundException("User with email: " + userEmail + " not found!"));
 
         group.addModerator(user);
+    }
+
+    @Transactional
+    public void removeGroup(String groupName) throws GroupNotFoundException {
+        Group group = groupRepository.findByName(groupName).orElseThrow(() -> new GroupNotFoundException("Group with name: " + groupName + " not found!"));
+        //group.getShifts().forEach(shift -> shift.setUsers(new HashSet<>()));
+        //group.setModerators(new HashSet<>());
+        //group.setShifts(new HashSet<>());
+
+        groupRepository.delete(group);
     }
 }

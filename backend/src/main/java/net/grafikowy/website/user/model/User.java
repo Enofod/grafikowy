@@ -29,7 +29,7 @@ import java.util.Set;
         )
         private Set<Authority> authorities = new HashSet<>();
 
-        @ManyToMany(cascade = CascadeType.ALL)
+        @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
         @JoinTable(
                 name = "user_group",
                 joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -37,7 +37,7 @@ import java.util.Set;
         )
         private Set<Group> usingGroups = new HashSet<>();
 
-        @ManyToMany(cascade = CascadeType.ALL)
+        @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
         @JoinTable(
                 name = "moderator_group",
                 joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -45,7 +45,7 @@ import java.util.Set;
         )
         private Set<Group> moderatingGroups = new HashSet<>();
 
-        @ManyToMany(cascade = CascadeType.ALL)
+        @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
         @JoinTable(
                 name = "user_shifts",
                 joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},

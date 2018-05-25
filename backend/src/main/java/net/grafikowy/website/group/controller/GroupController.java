@@ -54,4 +54,10 @@ public class GroupController {
     public void removeUserFromGroup(@PathVariable String groupName, @RequestBody EmailHolder userEmail) throws GroupNotFoundException, UserNotFoundException {
         groupService.removeUserFromGroup(groupName, userEmail.getEmail());
     }
+
+    // TODO: Change to delete mapping
+    @PostMapping(value = "/{groupName}/remove")
+    public void removeGroup(@PathVariable String groupName) throws GroupNotFoundException, UserNotFoundException {
+        groupService.removeGroup(groupName);
+    }
 }

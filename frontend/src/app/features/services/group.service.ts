@@ -24,4 +24,9 @@ export class GroupService {
     return this.apiClientService.postForVoid(uri, {email: userEmail});
   }
 
+  removeGroup(groupName: string): Observable<Object> {
+    const uri = 'groups/' + groupName + '/remove';
+    return this.apiClientService.postForVoid(uri, {});
+  }
+
 }

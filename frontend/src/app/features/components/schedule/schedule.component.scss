@@ -46,6 +46,17 @@ $accent: map-get($light-theme, accent);
   }
 }
 
+.removeButtonGroup {
+  margin: 10px;
+  display: flex;
+  float: left;
+
+  & button {
+    margin-left: 5px;
+    min-width: 1%;
+  }
+}
+
 .mat-header-cell {
   &.shift {
     text-align: center;
